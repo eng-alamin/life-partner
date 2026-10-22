@@ -1,0 +1,119 @@
+<?php
+
+return [
+    'title' => 'Activity log',
+    'heading' => 'Activity log',
+    'intro' => 'What members and staff did, newest first. This list is read-only and shows only codes, statuses and numbers, never names, contact details or biodata content.',
+    'filter_label' => 'Type',
+    'all' => 'All',
+    'by' => 'by',
+    'yes' => 'yes',
+    'no' => 'no',
+    'empty_title' => 'Nothing logged yet',
+    'empty_text' => 'No activity matches this filter.',
+    'previous' => 'Previous',
+    'next' => 'Next',
+    'causer' => [
+        'system' => 'System',
+        'staff' => 'Staff #:id',
+        'member' => 'Member #:id',
+        'member_code' => 'Member :code',
+    ],
+    'logs' => [
+        'account' => 'Account',
+        'biodata' => 'Biodata',
+        'billing' => 'Billing',
+        'block' => 'Blocks',
+        'interest' => 'Interests',
+        'moderation' => 'Moderation',
+        'notification' => 'Notifications',
+        'page' => 'Pages',
+        'payment' => 'Payments',
+        'plan' => 'Plans',
+        'report' => 'Reports',
+        'settings' => 'Settings',
+        'staff' => 'Staff roles',
+        'user' => 'Members',
+    ],
+    'events' => [
+        'account' => [
+            'deletion_cancelled' => 'Account deletion cancelled',
+            'deletion_requested' => 'Account deletion requested',
+            'purged' => 'Account data deleted',
+        ],
+        'biodata' => [
+            'approved' => 'Biodata approved',
+            'rejected' => 'Biodata rejected',
+            'hidden' => 'Biodata hidden by the owner',
+            'shown' => 'Biodata shown again by the owner',
+            'deactivated' => 'Biodata deactivated by the owner',
+            'reactivated' => 'Biodata reactivated by the owner',
+            'restored' => 'Hidden biodata restored by staff',
+        ],
+        'block' => [
+            'created' => 'Member blocked',
+            'removed' => 'Block removed',
+        ],
+        'contact' => [
+            'unlocked' => 'Contact unlocked with a credit',
+        ],
+        'credits' => [
+            'granted' => 'Credits granted',
+        ],
+        'interest' => [
+            'guardian_link_issued' => 'Guardian link created',
+            'guardian_approved' => 'Guardian approved',
+            'guardian_declined' => 'Guardian declined',
+            'contact_revealed' => 'Contact details shown',
+        ],
+        'notifications' => [
+            'pruned' => 'Old notifications deleted',
+        ],
+        'page' => [
+            'created' => 'Page created',
+            'updated' => 'Page updated',
+        ],
+        'payment' => [
+            'started' => 'Payment started',
+            'submitted' => 'Payment submitted',
+            'approved' => 'Payment approved',
+            'rejected' => 'Payment rejected',
+            'cancelled' => 'Payment cancelled',
+            'refunded' => 'Payment refunded',
+        ],
+        'phone' => [
+            'verified' => 'Phone verified',
+            'removed' => 'Phone removed',
+        ],
+        'photo' => [
+            'approved' => 'Photo approved',
+            'rejected' => 'Photo rejected',
+        ],
+        'plan' => [
+            'activated' => 'Plan activated',
+            'deactivated' => 'Plan deactivated',
+            'created' => 'Plan created',
+            'updated' => 'Plan updated',
+        ],
+        'report' => [
+            'created' => 'Report submitted',
+            'resolved' => 'Report resolved',
+            'dismissed' => 'Report dismissed',
+            'hidden' => 'Report resolved and biodata hidden',
+        ],
+        'settings' => [
+            'updated' => 'Settings updated',
+        ],
+        'staff' => [
+            'granted' => 'Staff role given',
+            'revoked' => 'Staff role taken away',
+        ],
+        'subscription' => [
+            'started' => 'Subscription started',
+        ],
+        'user' => [
+            'suspended' => 'Member suspended',
+            'reactivated' => 'Member reactivated',
+        ],
+    ],
+];

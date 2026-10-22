@@ -1,0 +1,238 @@
+@import 'tailwindcss';
+
+/*
+ * Tailwind v4 source detection. Every Blade, Livewire view, JS file and PHP
+ * class (enums return class strings) is scanned so nothing is purged.
+ */
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../../app/**/*.php';
+
+/* Design tokens: one palette, one font stack, defined once. */
+@theme {
+    --font-sans: 'Hind Siliguri', 'Noto Sans Bengali', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand-50: #effaf5;
+    --color-brand-100: #d7f3e6;
+    --color-brand-600: #187c60;
+    --color-brand-700: #146350;
+    --color-brand-800: #135042;
+    --color-brand-900: #124238;
+
+    --color-gold-50: #fdf8ec;
+    --color-gold-200: #f3d794;
+    --color-gold-500: #d58b1b;
+    --color-gold-700: #964e14;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    body {
+        @apply bg-stone-50 font-sans text-base leading-relaxed text-stone-800 antialiased;
+        position: relative;
+    }
+
+    /* Soft colour wash behind the glass panels. Static (no animation) for low-end phones. */
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+            radial-gradient(46rem 36rem at 6% -4%, rgb(24 124 96 / 0.34), transparent 62%),
+            radial-gradient(30rem 26rem at 88% 30%, rgb(213 139 27 / 0.22), transparent 62%),
+            radial-gradient(44rem 34rem at 55% 108%, rgb(24 124 96 / 0.22), transparent 62%),
+            linear-gradient(180deg, #f6fbf8, #fafaf9 40%, #f7f5ef);
+    }
+
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-brand-600;
+    }
+
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+        box-shadow: 0 0 0 4px rgb(24 124 96 / 0.16);
+    }
+
+    tbody tr {
+        transition: background-color 0.2s ease;
+    }
+
+    tbody tr:hover {
+        background-color: rgb(24 124 96 / 0.06);
+    }
+}
+
+@layer components {
+    /* ---------- Glass family (use via <x-card>) ---------- */
+    .glass,
+    .glass-sm,
+    .glass-strong,
+    .glass-mint,
+    .glass-gold,
+    .glass-red {
+        position: relative;
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        backdrop-filter: blur(16px) saturate(160%);
+        border-radius: 1.5rem;
+    }
+
+    .glass {
+        background: linear-gradient(145deg, rgb(255 255 255 / 0.76), rgb(255 255 255 / 0.5));
+        border: 1px solid rgb(255 255 255 / 0.85);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.95),
+            0 0 0 1px rgb(19 80 66 / 0.05),
+            0 12px 36px -10px rgb(19 80 66 / 0.18);
+    }
+
+    .glass-sm {
+        border-radius: 1rem;
+        background: linear-gradient(145deg, rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.45));
+        border: 1px solid rgb(255 255 255 / 0.8);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.95),
+            0 0 0 1px rgb(19 80 66 / 0.05),
+            0 6px 20px -8px rgb(19 80 66 / 0.16);
+    }
+
+    .glass-strong {
+        background: linear-gradient(145deg, rgb(255 255 255 / 0.94), rgb(255 255 255 / 0.86));
+        border: 1px solid rgb(255 255 255 / 0.9);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 1),
+            0 0 0 1px rgb(19 80 66 / 0.06),
+            0 18px 44px -12px rgb(19 80 66 / 0.28);
+    }
+
+    .glass-mint {
+        background: linear-gradient(145deg, rgb(215 243 230 / 0.8), rgb(239 250 245 / 0.55));
+        border: 1px solid rgb(255 255 255 / 0.8);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.9),
+            0 0 0 1px rgb(24 124 96 / 0.12),
+            0 10px 30px -10px rgb(19 80 66 / 0.22);
+    }
+
+    .glass-gold {
+        background: linear-gradient(145deg, rgb(253 248 236 / 0.88), rgb(243 215 148 / 0.36));
+        border: 1px solid rgb(243 215 148 / 0.75);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.85),
+            0 0 0 1px rgb(150 78 20 / 0.06),
+            0 10px 30px -10px rgb(150 78 20 / 0.22);
+    }
+
+    .glass-red {
+        background: linear-gradient(145deg, rgb(254 242 242 / 0.88), rgb(254 202 202 / 0.4));
+        border: 1px solid rgb(252 165 165 / 0.65);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.85),
+            0 10px 30px -10px rgb(185 28 28 / 0.2);
+    }
+
+    /* Sticky header / bottom tab bar */
+    .glass-bar {
+        background: rgb(255 255 255 / 0.76);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+        backdrop-filter: blur(16px) saturate(160%);
+        border-bottom: 1px solid rgb(255 255 255 / 0.7);
+        box-shadow:
+            0 1px 0 rgb(19 80 66 / 0.06),
+            0 8px 24px -12px rgb(19 80 66 / 0.18);
+    }
+
+    .glass-bar-bottom {
+        border-bottom: 0;
+        border-top: 1px solid rgb(255 255 255 / 0.7);
+        box-shadow:
+            0 -1px 0 rgb(19 80 66 / 0.06),
+            0 -8px 24px -12px rgb(19 80 66 / 0.14);
+    }
+
+    /* Dark call-to-action panel (static gradient, no animation) */
+    .glass-dark {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1.75rem;
+        color: #fff;
+        background: linear-gradient(120deg, rgb(19 80 66 / 0.97), rgb(24 124 96 / 0.92) 50%, rgb(20 99 80 / 0.97));
+        border: 1px solid rgb(255 255 255 / 0.18);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.28),
+            0 22px 50px -16px rgb(19 80 66 / 0.6);
+    }
+
+    .icon-chip {
+        display: inline-flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1rem;
+        color: #fff;
+        background: linear-gradient(145deg, #25a47e, #135042);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.38),
+            0 10px 20px -8px rgb(19 80 66 / 0.6);
+    }
+
+    .icon-chip-gold {
+        background: linear-gradient(145deg, #f2b648, #a85a16);
+        box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.4),
+            0 10px 20px -8px rgb(150 78 20 / 0.6);
+    }
+
+    /* Phones: lighter blur is cheaper to paint. */
+    @media (max-width: 640px) {
+        .glass,
+        .glass-sm,
+        .glass-strong,
+        .glass-mint,
+        .glass-gold,
+        .glass-red,
+        .glass-bar {
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            backdrop-filter: blur(10px) saturate(150%);
+        }
+    }
+
+    /* Fallbacks */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+        .glass,
+        .glass-sm,
+        .glass-strong,
+        .glass-bar {
+            background: rgb(255 255 255 / 0.96);
+        }
+    }
+
+    @media (prefers-reduced-transparency: reduce) {
+        .glass,
+        .glass-sm,
+        .glass-strong,
+        .glass-mint,
+        .glass-gold,
+        .glass-red,
+        .glass-bar {
+            background: #fff;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+        }
+    }
+}

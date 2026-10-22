@@ -1,0 +1,71 @@
+<?php
+
+return [
+    'errors' => [
+        'no_biodata' => 'Please create your biodata before sending an interest.',
+        'receiver_unavailable' => 'This biodata is not available for interest requests right now.',
+        'message_too_long' => 'The message can be at most :max characters.',
+        'message_contact' => 'Please do not write phone numbers, email addresses, links or chat app names in the message.',
+        'already_connected' => 'Your interest has already been accepted.',
+        'already_open' => 'You already have a pending interest for this biodata.',
+        'reverse_pending' => 'This member has already sent you an interest. You can accept it from your interests list.',
+        'cooldown' => 'This member did not accept your earlier interest. You can try again in :days day(s).',
+        'daily_limit' => 'You can send at most :limit interests in 24 hours. Please try again later.',
+        'not_open' => 'This interest is no longer pending.',
+        'expired' => 'This interest has expired.',
+        'sender_unavailable' => 'The biodata of the sender is not available now, so this interest cannot be accepted.',
+    ],
+
+    'ui' => [
+        'title' => 'Interests',
+        'heading' => 'Interest',
+        'intro' => 'If you like this biodata, you can send an interest with a short, polite message. The other member will see it in their interests list.',
+        'message_label' => 'A short message (optional)',
+        'message_hint' => 'Up to :max characters. Do not write phone numbers, email addresses or links.',
+        'send' => 'Send interest',
+        'sent' => 'Your interest was sent. You can follow the reply in your interests list.',
+
+        'state_sent' => 'You have sent an interest to this member. It is waiting for a reply.',
+        'state_received' => 'This member has sent you an interest. You can reply from your interests list.',
+        'state_connected' => 'Your interest with this member was accepted.',
+        'state_no_biodata' => 'Create your biodata first. Then you can send interests.',
+        'state_not_approved' => 'Your biodata must be approved before you can send an interest.',
+        'open_list' => 'Open my interests',
+        'create_biodata' => 'Create my biodata',
+        'go_to_biodata' => 'Go to my biodata',
+
+        'inbox_heading' => 'My interests',
+        'inbox_intro' => 'Interests you received and interests you sent. Contact details are never shown here.',
+        'tab_received' => 'Received',
+        'tab_sent' => 'Sent',
+        'no_biodata_title' => 'You have not started a biodata yet',
+        'no_biodata_text' => 'Create and submit your biodata to send and receive interests.',
+        'empty_received_title' => 'No interests received yet',
+        'empty_received_text' => 'When a member sends you an interest, it will appear here.',
+        'empty_sent_title' => 'You have not sent any interest yet',
+        'empty_sent_text' => 'Find a biodata you like and send an interest.',
+        'find_matches' => 'Find biodatas',
+
+        'sent_on' => 'Sent on :date',
+        'expires_on' => 'Expires on :date',
+        'message_heading' => 'Message',
+        'unavailable' => 'This biodata is no longer available.',
+        'view_profile' => 'View biodata',
+        'accept' => 'Accept',
+        'decline' => 'Decline',
+        'cancel' => 'Cancel interest',
+        'confirm_decline' => 'Decline this interest?',
+        'confirm_cancel' => 'Cancel this interest?',
+        'load_more' => 'Show more',
+
+        'accepted' => 'You accepted the interest.',
+        'declined' => 'You declined the interest.',
+        'cancelled' => 'Your interest was cancelled.',
+
+        'guardian' => [
+            'pending' => 'Waiting for guardian approval',
+            'approved' => 'Guardian approved',
+            'declined' => 'Guardian did not approve',
+        ],
+    ],
+];

@@ -1,0 +1,52 @@
+<?php
+
+return [
+    'title' => 'Verify my identity',
+    'heading' => 'Verify my identity',
+    'link' => 'Verify my identity',
+    'back' => 'Back to my biodata',
+    'intro' => 'Send a clear picture of one identity document and we will add an "identity verified" badge to your biodata. This helps other members trust your biodata.',
+    'privacy' => [
+        'heading' => 'How we protect your document',
+        'no_number' => 'We keep pictures only. We do not read or save your document number.',
+        'encrypted' => 'Your pictures are re-saved without hidden data (such as the place where a photo was taken) and stored encrypted.',
+        'deleted' => 'The pictures are deleted as soon as our team has made a decision.',
+        'staff_only' => 'Only authorized staff can open the pictures. Every opening is recorded.',
+        'badge_only' => 'Other members see only the "identity verified" badge, never your document.',
+    ],
+    'state' => [
+        'verified' => 'Your identity is verified. The badge is shown on your biodata.',
+        'pending' => 'Your request of :date is waiting for review. A request that waits more than :days days is cancelled and its pictures are deleted.',
+        'rejected' => 'Your last request was not accepted. Reason: :reason. You can send a new picture.',
+        'no_biodata' => 'Create your biodata first. The badge belongs to your biodata.',
+        'go_biodata' => 'Go to my biodata',
+        'closed' => 'You cannot send a request right now.',
+    ],
+    'form' => [
+        'type' => 'Document',
+        'front' => 'Front side (or photo page)',
+        'back' => 'Back side (optional)',
+        'back_hint' => 'Add the back if the document has information there.',
+        'file_hint' => 'A JPG, PNG or WebP picture, up to :max MB.',
+        'advice' => 'Make sure all four corners and every word are clear. Cover nothing.',
+        'submit' => 'Send for review',
+    ],
+    'flash' => [
+        'submitted' => 'Your request is saved. Our team will review it.',
+    ],
+    'errors' => [
+        'type_invalid' => 'Please choose one of the documents in the list.',
+        'front_required' => 'Please choose a picture of the front side.',
+        'unreadable' => 'This file is not a picture we can read. Please send a JPG, PNG or WebP picture.',
+        'upload_failed' => 'The upload did not finish. Please try again.',
+        'too_big' => 'This picture is too big. Please send a smaller one.',
+        'type' => 'Only JPG, PNG or WebP pictures are accepted.',
+        'pixels' => 'This picture is too large in size. Please send a smaller one.',
+        'account_closed' => 'Your account cannot send a request right now.',
+        'deletion_waiting' => 'You cannot send a request while your account is waiting to be deleted.',
+        'no_biodata' => 'Create your biodata first.',
+        'already_verified' => 'Your identity is already verified.',
+        'already_open' => 'You already have a request waiting for review.',
+        'daily_limit' => 'You have reached the daily limit of requests. Please try again tomorrow.',
+    ],
+];

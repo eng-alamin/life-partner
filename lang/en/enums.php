@@ -1,0 +1,172 @@
+<?php
+
+return [
+    'biodata_type' => [
+        'groom' => 'Groom',
+        'bride' => 'Bride',
+    ],
+    'biodata_status' => [
+        'draft' => 'Draft',
+        'pending' => 'Under review',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+        'hidden' => 'Hidden',
+        'deactivated' => 'Deactivated',
+    ],
+    'interest_status' => [
+        'pending' => 'Pending',
+        'accepted' => 'Accepted',
+        'declined' => 'Declined',
+        'cancelled' => 'Cancelled',
+        'expired' => 'Expired',
+    ],
+    'guardian_approval_status' => [
+        'not_required' => 'Not required',
+        'pending' => 'Waiting for guardian',
+        'approved' => 'Guardian approved',
+        'declined' => 'Guardian declined',
+    ],
+    'payment_status' => [
+        'pending' => 'Pending',
+        'under_review' => 'Under review',
+        'paid' => 'Paid',
+        'failed' => 'Failed',
+        'cancelled' => 'Cancelled',
+        'refunded' => 'Refunded',
+    ],
+    'subscription_status' => [
+        'pending' => 'Pending',
+        'active' => 'Active',
+        'expired' => 'Expired',
+        'cancelled' => 'Cancelled',
+    ],
+    'plan_kind' => [
+        'credit_pack' => 'Credit pack',
+        'membership' => 'Membership',
+    ],
+    'payment_gateway' => [
+        'manual_bkash' => 'bKash (manual)',
+        'bkash' => 'bKash',
+        'sslcommerz' => 'SSLCommerz',
+    ],
+    'credit_reason' => [
+        'purchase' => 'Purchase',
+        'membership_grant' => 'Membership credits',
+        'free_grant' => 'Free credits',
+        'admin_adjust' => 'Staff adjustment',
+        'unlock' => 'Contact unlock',
+        'refund_reversal' => 'Refund reversal',
+    ],
+    'photo_status' => [
+        'pending' => 'Pending review',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+    ],
+    'photo_visibility' => [
+        'hidden' => 'Hidden from everyone',
+        'after_acceptance' => 'Visible after an interest is accepted',
+        'approved_members' => 'Visible to all approved members',
+    ],
+    'marital_status' => [
+        'never_married' => 'Never married',
+        'divorced' => 'Divorced',
+        'widowed' => 'Widowed',
+    ],
+    'complexion' => [
+        'fair' => 'Fair',
+        'medium' => 'Medium',
+        'brown' => 'Brown',
+        'dark' => 'Dark',
+    ],
+    'income_range' => [
+        'below_30k' => 'Below 30,000',
+        'from_30k_to_60k' => '30,000 – 60,000',
+        'from_60k_to_100k' => '60,000 – 100,000',
+        'above_100k' => 'Above 100,000',
+        'undisclosed' => 'Prefer not to say',
+    ],
+    'prayer_habit' => [
+        'five_on_time' => 'Five times, on time',
+        'mostly_regular' => 'Mostly regular',
+        'sometimes' => 'Sometimes',
+        'learning' => 'Learning',
+    ],
+    'quran_reading' => [
+        'tajweed' => 'Can read with tajweed',
+        'can_read' => 'Can read',
+        'learning' => 'Learning',
+    ],
+    'madhhab' => [
+        'hanafi' => 'Hanafi',
+        'shafii' => 'Shafi\'i',
+        'maliki' => 'Maliki',
+        'hanbali' => 'Hanbali',
+        'undisclosed' => 'Prefer not to say',
+    ],
+    'practicing_level' => [
+        'practicing' => 'Practicing',
+        'trying' => 'Trying to practice',
+        'beginner' => 'Beginner',
+    ],
+    'dress_practice' => [
+        'always' => 'Yes, always',
+        'sometimes' => 'Sometimes',
+        'no' => 'No',
+    ],
+    'parent_status' => [
+        'living' => 'Living',
+        'deceased' => 'Deceased',
+    ],
+    'family_financial_status' => [
+        'lower_middle' => 'Lower middle',
+        'middle' => 'Middle',
+        'upper_middle' => 'Upper middle',
+        'high' => 'High',
+    ],
+    'marriage_timeline' => [
+        'within_6_months' => 'Within 6 months',
+        'within_1_year' => 'Within 1 year',
+        'within_2_years' => 'Within 2 years',
+    ],
+    'spouse_work_after_marriage' => [
+        'yes' => 'Yes',
+        'no' => 'No',
+        'open' => 'Open to discuss',
+    ],
+    'living_arrangement' => [
+        'separate_home' => 'Separate home',
+        'with_family' => 'With family',
+        'open' => 'Open to discuss',
+    ],
+    'education_level' => [
+        'ssc' => 'SSC or equivalent',
+        'hsc' => 'HSC or equivalent',
+        'bachelor' => 'Bachelor',
+        'masters' => 'Masters',
+        'doctorate' => 'Doctorate',
+    ],
+    'guardian_relation' => [
+        'father' => 'Father',
+        'mother' => 'Mother',
+        'brother' => 'Brother',
+        'uncle' => 'Uncle',
+        'other' => 'Other',
+    ],
+    'identity_status' => [
+        'pending' => 'Waiting for review',
+        'approved' => 'Verified',
+        'rejected' => 'Rejected',
+    ],
+    'identity_document_type' => [
+        'nid' => 'National ID card (NID)',
+        'passport' => 'Passport',
+        'driving_license' => 'Driving licence',
+    ],
+    'identity_rejection_reason' => [
+        'unreadable' => 'The picture is not clear enough to read',
+        'mismatch' => 'The document does not match the biodata',
+        'expired' => 'The document has expired',
+        'not_accepted' => 'This kind of document is not accepted',
+        'other' => 'Other reason',
+    ],
+];

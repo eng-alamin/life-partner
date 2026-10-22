@@ -1,0 +1,172 @@
+<?php
+
+return [
+    'biodata_type' => [
+        'groom' => 'পাত্র',
+        'bride' => 'পাত্রী',
+    ],
+    'biodata_status' => [
+        'draft' => 'খসড়া',
+        'pending' => 'যাচাইয়ের অপেক্ষায়',
+        'approved' => 'অনুমোদিত',
+        'rejected' => 'বাতিল',
+        'hidden' => 'লুকানো',
+        'deactivated' => 'নিষ্ক্রিয়',
+    ],
+    'interest_status' => [
+        'pending' => 'অপেক্ষমাণ',
+        'accepted' => 'গৃহীত',
+        'declined' => 'প্রত্যাখ্যাত',
+        'cancelled' => 'বাতিল',
+        'expired' => 'মেয়াদোত্তীর্ণ',
+    ],
+    'guardian_approval_status' => [
+        'not_required' => 'প্রয়োজন নেই',
+        'pending' => 'অভিভাবকের অপেক্ষায়',
+        'approved' => 'অভিভাবক অনুমোদন করেছেন',
+        'declined' => 'অভিভাবক অনুমোদন করেননি',
+    ],
+    'payment_status' => [
+        'pending' => 'অপেক্ষমাণ',
+        'under_review' => 'যাচাইয়ের অপেক্ষায়',
+        'paid' => 'পরিশোধিত',
+        'failed' => 'ব্যর্থ',
+        'cancelled' => 'বাতিল',
+        'refunded' => 'ফেরত দেওয়া হয়েছে',
+    ],
+    'subscription_status' => [
+        'pending' => 'অপেক্ষমাণ',
+        'active' => 'সক্রিয়',
+        'expired' => 'মেয়াদোত্তীর্ণ',
+        'cancelled' => 'বাতিল',
+    ],
+    'plan_kind' => [
+        'credit_pack' => 'ক্রেডিট প্যাক',
+        'membership' => 'সদস্যপদ',
+    ],
+    'payment_gateway' => [
+        'manual_bkash' => 'বিকাশ (ম্যানুয়াল)',
+        'bkash' => 'বিকাশ',
+        'sslcommerz' => 'SSLCommerz',
+    ],
+    'credit_reason' => [
+        'purchase' => 'ক্রয়',
+        'membership_grant' => 'সদস্যপদের ক্রেডিট',
+        'free_grant' => 'বিনামূল্যের ক্রেডিট',
+        'admin_adjust' => 'স্টাফের সমন্বয়',
+        'unlock' => 'যোগাযোগের তথ্য আনলক',
+        'refund_reversal' => 'ফেরতের কারণে বাতিল',
+    ],
+    'photo_status' => [
+        'pending' => 'যাচাইয়ের অপেক্ষায়',
+        'approved' => 'অনুমোদিত',
+        'rejected' => 'বাতিল',
+    ],
+    'photo_visibility' => [
+        'hidden' => 'কাউকে দেখানো হবে না',
+        'after_acceptance' => 'আগ্রহ গৃহীত হলে দেখা যাবে',
+        'approved_members' => 'অনুমোদিত সব সদস্য দেখতে পাবেন',
+    ],
+    'marital_status' => [
+        'never_married' => 'অবিবাহিত',
+        'divorced' => 'ডিভোর্সড',
+        'widowed' => 'বিধবা / বিপত্নীক',
+    ],
+    'complexion' => [
+        'fair' => 'ফর্সা',
+        'medium' => 'উজ্জ্বল শ্যামলা',
+        'brown' => 'শ্যামলা',
+        'dark' => 'কালো',
+    ],
+    'income_range' => [
+        'below_30k' => '৩০,০০০ টাকার কম',
+        'from_30k_to_60k' => '৩০,০০০ – ৬০,০০০ টাকা',
+        'from_60k_to_100k' => '৬০,০০০ – ১,০০,০০০ টাকা',
+        'above_100k' => '১,০০,০০০ টাকার বেশি',
+        'undisclosed' => 'বলতে চাই না',
+    ],
+    'prayer_habit' => [
+        'five_on_time' => 'পাঁচ ওয়াক্ত, সময়মতো',
+        'mostly_regular' => 'প্রায় নিয়মিত',
+        'sometimes' => 'মাঝে মাঝে',
+        'learning' => 'শিখছি',
+    ],
+    'quran_reading' => [
+        'tajweed' => 'তাজবীদসহ পড়তে পারি',
+        'can_read' => 'পড়তে পারি',
+        'learning' => 'শিখছি',
+    ],
+    'madhhab' => [
+        'hanafi' => 'হানাফি',
+        'shafii' => 'শাফেয়ি',
+        'maliki' => 'মালিকি',
+        'hanbali' => 'হাম্বলি',
+        'undisclosed' => 'বলতে চাই না',
+    ],
+    'practicing_level' => [
+        'practicing' => 'আমলদার',
+        'trying' => 'আমলের চেষ্টা করছি',
+        'beginner' => 'নতুন শুরু করেছি',
+    ],
+    'dress_practice' => [
+        'always' => 'হ্যাঁ, সবসময়',
+        'sometimes' => 'মাঝে মাঝে',
+        'no' => 'না',
+    ],
+    'parent_status' => [
+        'living' => 'জীবিত',
+        'deceased' => 'মৃত',
+    ],
+    'family_financial_status' => [
+        'lower_middle' => 'নিম্ন মধ্যবিত্ত',
+        'middle' => 'মধ্যবিত্ত',
+        'upper_middle' => 'উচ্চ মধ্যবিত্ত',
+        'high' => 'উচ্চবিত্ত',
+    ],
+    'marriage_timeline' => [
+        'within_6_months' => '৬ মাসের মধ্যে',
+        'within_1_year' => '১ বছরের মধ্যে',
+        'within_2_years' => '২ বছরের মধ্যে',
+    ],
+    'spouse_work_after_marriage' => [
+        'yes' => 'হ্যাঁ',
+        'no' => 'না',
+        'open' => 'আলোচনা সাপেক্ষে',
+    ],
+    'living_arrangement' => [
+        'separate_home' => 'আলাদা বাসা',
+        'with_family' => 'পরিবারের সঙ্গে',
+        'open' => 'আলোচনা সাপেক্ষে',
+    ],
+    'education_level' => [
+        'ssc' => 'এসএসসি বা সমমান',
+        'hsc' => 'এইচএসসি বা সমমান',
+        'bachelor' => 'স্নাতক',
+        'masters' => 'স্নাতকোত্তর',
+        'doctorate' => 'ডক্টরেট',
+    ],
+    'guardian_relation' => [
+        'father' => 'বাবা',
+        'mother' => 'মা',
+        'brother' => 'ভাই',
+        'uncle' => 'চাচা / মামা',
+        'other' => 'অন্য কেউ',
+    ],
+    'identity_status' => [
+        'pending' => 'যাচাইয়ের অপেক্ষায়',
+        'approved' => 'যাচাই হয়েছে',
+        'rejected' => 'বাতিল',
+    ],
+    'identity_document_type' => [
+        'nid' => 'জাতীয় পরিচয়পত্র (NID)',
+        'passport' => 'পাসপোর্ট',
+        'driving_license' => 'ড্রাইভিং লাইসেন্স',
+    ],
+    'identity_rejection_reason' => [
+        'unreadable' => 'ছবি পড়ার মতো স্পষ্ট নয়',
+        'mismatch' => 'নথির তথ্য বায়োডাটার সঙ্গে মেলে না',
+        'expired' => 'নথির মেয়াদ শেষ',
+        'not_accepted' => 'এই ধরনের নথি গ্রহণ করা হয় না',
+        'other' => 'অন্য কারণ',
+    ],
+];
