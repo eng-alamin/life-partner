@@ -6,10 +6,10 @@ namespace App\Actions\Identity;
 
 use App\Enums\IdentityDocumentType;
 use App\Enums\IdentityStatus;
+use App\Enums\NotificationType;
 use App\Models\Biodata;
 use App\Models\IdentityVerification;
 use App\Models\User;
-use App\Enums\NotificationType;
 use App\Services\Identity\IdentityImageProcessor;
 use App\Services\Notification\Notifier;
 use Illuminate\Database\UniqueConstraintViolationException;

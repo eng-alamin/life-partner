@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions\Interest;
 
-use App\Services\Notification\Notifier;
 use App\Enums\InterestActor;
 use App\Enums\InterestStatus;
 use App\Models\Biodata;
 use App\Models\Interest;
 use App\Models\User;
 use App\Services\Interest\InterestTransitions;
+use App\Services\Notification\Notifier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;

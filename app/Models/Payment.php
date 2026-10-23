@@ -8,6 +8,7 @@ use App\Enums\PaymentGateway;
 use App\Enums\PaymentStatus;
 use App\Enums\PlanKind;
 use Database\Factories\PaymentFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -95,6 +96,23 @@ class Payment extends Model
     public function reviewer(): BelongsTo
     {
         return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
+    /**
+     * bKash API payments flagged "needs attention" that staff have not marked as handled,
+     * and that are not paid or refunded. The one rule behind the attention tab, the menu
+     * badge and the dashboard count.
+     *
+     * @param  Builder<Payment>  $query
+     * @return Builder<Payment>
+     */
+    public function scopeNeedsAttention(Builder $query): Builder
+    {
+        return $query
+            ->where('payments.gateway', PaymentGateway::Bkash->value)
+            ->whereNotIn('payments.status', [PaymentStatus::Paid->value, PaymentStatus::Refunded->value])
+            ->whereHas('events', fn ($events) => $events->where('event_type', 'needs_attention'))
+            ->whereDoesntHave('events', fn ($events) => $events->where('event_type', 'attention_resolved'));
     }
 
     public function events(): HasMany

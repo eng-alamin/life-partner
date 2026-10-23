@@ -7,6 +7,8 @@ namespace App\Livewire\Admin;
 use App\Actions\Payment\ApprovePayment;
 use App\Actions\Payment\RefundPayment;
 use App\Actions\Payment\RejectPayment;
+use App\Actions\Payment\ResolveBkashAttention;
+use App\Enums\PaymentGateway;
 use App\Enums\PaymentStatus;
 use App\Models\Payment;
 use App\Support\Money;
@@ -71,6 +73,15 @@ class PaymentReview extends Component
         $this->finish('refunded');
     }
 
+    public function resolveAttention(ResolveBkashAttention $resolve): void
+    {
+        $this->begin();
+
+        $resolve(auth()->user(), $this->paymentCode);
+
+        $this->finish('attention_resolved');
+    }
+
     public function render()
     {
         $payment = Payment::query()
@@ -88,6 +99,10 @@ class PaymentReview extends Component
             'canRefund' => $payment->status === PaymentStatus::Paid,
             'needsTrx' => $payment->gateway_ref === null,
             'hasProof' => $payment->proof_path !== null,
+            'needsAttention' => $payment->gateway === PaymentGateway::Bkash
+                && ! in_array($payment->status, [PaymentStatus::Paid, PaymentStatus::Refunded], true)
+                && $payment->events->contains('event_type', 'needs_attention')
+                && ! $payment->events->contains('event_type', 'attention_resolved'),
         ])->title(__('admin_payments.review.title'));
     }
 

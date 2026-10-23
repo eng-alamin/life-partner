@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Account\DownloadMemberDataController;
-use App\Http\Controllers\PageController;
+use App\Http\Controllers\BkashCallbackController;
 use App\Http\Controllers\IdentityFileController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentProofController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SocialAuthController;
@@ -13,11 +14,6 @@ use App\Http\Middleware\PrivateLinkHeaders;
 use App\Livewire\Account\DeleteAccount;
 use App\Livewire\Account\ExportData;
 use App\Livewire\Account\IdentityVerificationPage;
-use App\Livewire\Auth\CompleteSocialSignup;
-use App\Livewire\Auth\ForgotPassword;
-use App\Livewire\Auth\Login;
-use App\Livewire\Auth\Register;
-use App\Livewire\Auth\VerifyEmailNotice;
 use App\Livewire\Admin\ActivityLogList;
 use App\Livewire\Admin\ApprovalQueue;
 use App\Livewire\Admin\ApprovalReview;
@@ -32,9 +28,9 @@ use App\Livewire\Admin\PageForm;
 use App\Livewire\Admin\PageList;
 use App\Livewire\Admin\PaymentQueue;
 use App\Livewire\Admin\PaymentReview;
+use App\Livewire\Admin\PhotoQueue;
 use App\Livewire\Admin\PlanForm;
 use App\Livewire\Admin\PlanList;
-use App\Livewire\Admin\PhotoQueue;
 use App\Livewire\Admin\ReportQueue;
 use App\Livewire\Admin\ReportReview;
 use App\Livewire\Admin\SettingsForm;
@@ -42,25 +38,31 @@ use App\Livewire\Admin\StoryForm;
 use App\Livewire\Admin\StoryList;
 use App\Livewire\Admin\UserList;
 use App\Livewire\Admin\UserShow;
+use App\Livewire\Auth\CompleteSocialSignup;
+use App\Livewire\Auth\ForgotPassword;
+use App\Livewire\Auth\Login;
+use App\Livewire\Auth\Register;
+use App\Livewire\Auth\VerifyEmailNotice;
+use App\Livewire\Billing\BillingIndex;
+use App\Livewire\Billing\PaymentPage;
+use App\Livewire\Billing\PlanIndex;
 use App\Livewire\Biodata\BiodataIndex;
 use App\Livewire\Biodata\BiodataProfile;
 use App\Livewire\Biodata\BiodataWizard;
 use App\Livewire\Biodata\MyBiodata;
-use App\Livewire\Billing\BillingIndex;
-use App\Livewire\Billing\PaymentPage;
-use App\Livewire\Billing\PlanIndex;
 use App\Livewire\Block\MyBlocks;
 use App\Livewire\Interest\GuardianDecision;
 use App\Livewire\Interest\InterestInbox;
 use App\Livewire\Notifications\NotificationIndex;
 use App\Livewire\Notifications\NotificationSettings;
 use App\Livewire\Shortlist\ShortlistIndex;
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.home')->name('home');
 
 // Content pages (about, FAQ, terms ...). The list of slugs is fixed in code; an unpublished page is a 404.
-foreach (\App\Models\Page::SLUGS as $pageSlug) {
+foreach (Page::SLUGS as $pageSlug) {
     Route::get('/p/'.$pageSlug, [PageController::class, 'show'])
         ->defaults('slug', $pageSlug)
         ->middleware('throttle:120,1')
@@ -148,6 +150,11 @@ Route::middleware(['auth', 'account.active'])->group(function (): void {
         Route::livewire('/billing/pay/{payment}', PaymentPage::class)
             ->where('payment', '[a-z0-9]{24}')
             ->name('billing.pay');
+
+        // Where bKash sends the member back. The address is untrusted; see SettleBkashPayment.
+        Route::get('/billing/bkash/callback', BkashCallbackController::class)
+            ->middleware('throttle:30,1')
+            ->name('billing.bkash.callback');
 
         // Payment screenshot: private disk, owner only (see PaymentProofController).
         Route::get('/billing/proof/{payment}', [PaymentProofController::class, 'show'])

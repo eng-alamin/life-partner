@@ -6,11 +6,14 @@ return [
         'heading' => 'Payments',
         'intro' => 'Manual bKash payments. Check each one against the bKash statement before you decide.',
         'tab_review' => 'To review',
+        'tab_attention' => 'Needs attention',
         'tab_decided' => 'Decided',
         'empty_review_title' => 'Nothing to review',
         'empty_review_text' => 'Payments that members submit will appear here.',
         'empty_decided_title' => 'No decided payments yet',
         'empty_decided_text' => 'Paid, rejected and refunded payments will be listed here.',
+        'empty_attention_title' => 'Nothing needs attention',
+        'empty_attention_text' => 'bKash payments that could not be matched automatically will be listed here.',
         'member' => 'Member',
         'has_trx' => 'TrxID given',
         'no_trx' => 'No TrxID',
@@ -60,6 +63,10 @@ return [
         'refund' => 'Mark as refunded',
         'refund_confirm' => 'Mark this payment as refunded? This cannot be undone.',
         'closed_note' => 'This payment is closed. No further decision is possible.',
+        'attention_title' => 'This bKash payment needs your attention',
+        'attention_text' => 'bKash said the money was taken, but we could not match it to this payment, so the member was given nothing. Check the bKash merchant panel. Refund the member there or sort it out by hand, then mark it as handled.',
+        'attention_confirm' => 'Mark this payment as handled? It leaves the attention list. The member is not given anything by this.',
+        'attention_button' => 'Mark as handled',
     ],
 
     'events' => [
@@ -69,6 +76,16 @@ return [
         'approved' => 'Approved by staff',
         'rejected' => 'Rejected by staff',
         'refunded' => 'Marked as refunded',
+        'gateway_init' => 'bKash payment page opened',
+        'gateway_error' => 'bKash reported an error',
+        'execute_unknown' => 'No clear answer from bKash',
+        'not_completed' => 'bKash did not confirm the payment yet',
+        'callback_ignored' => 'Member came back to a closed payment',
+        'paid' => 'Paid and confirmed by bKash',
+        'failed' => 'Failed at bKash',
+        'settle_failed' => 'bKash confirmed the payment but saving failed; the system will ask bKash again',
+        'needs_attention' => 'Needs attention: money may have moved',
+        'attention_resolved' => 'Marked as handled by staff',
     ],
 
     'errors' => [
@@ -77,11 +94,13 @@ return [
         'trx_required' => 'Enter the TrxID from the bKash statement before approving.',
         'reason_invalid' => 'Write a reason of :min to :max characters.',
         'not_refundable' => 'Only a paid payment can be marked as refunded.',
+        'not_flagged' => 'This payment is not waiting for attention.',
     ],
 
     'flash' => [
         'approved' => 'Payment approved. The member now has the plan.',
         'rejected' => 'Payment rejected.',
         'refunded' => 'Payment marked as refunded.',
+        'attention_resolved' => 'Payment marked as handled.',
     ],
 ];

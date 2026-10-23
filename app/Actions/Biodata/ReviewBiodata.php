@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Actions\Biodata;
 
-use App\Services\Notification\Notifier;
 use App\Enums\BiodataStatus;
 use App\Models\Biodata;
 use App\Models\User;
+use App\Services\Notification\Notifier;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;

@@ -25,6 +25,7 @@ return [
             'biodata' => 'Biodatas to review',
             'photos' => 'Photos to review',
             'payments' => 'Payments to check',
+            'payments_attention' => 'bKash payments needing attention',
             'reports' => 'Open reports',
             'identity' => 'Identity requests',
         ],

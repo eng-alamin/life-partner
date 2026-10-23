@@ -75,6 +75,7 @@
         <x-card class="mt-4">
             <h2 class="text-lg font-semibold text-stone-900">{{ __('admin_users.show.suspend_heading') }}</h2>
             <p class="mt-1 text-stone-600">{{ __('admin_users.show.suspend_text') }}</p>
+            <p class="mt-2 text-stone-600">{{ __('admin_users.show.suspend_cancels') }}</p>
 
             <div class="mt-3 space-y-3">
                 <x-field name="reason" :label="__('admin_users.show.reason_label')" :hint="__('admin_users.show.reason_hint')" required>

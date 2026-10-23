@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Actions\Photo;
 
 use App\Enums\NotificationType;
-use App\Services\Notification\Notifier;
 use App\Enums\PhotoStatus;
 use App\Models\Biodata;
 use App\Models\BiodataPhoto;
 use App\Models\User;
+use App\Services\Notification\Notifier;
 use App\Services\Photo\ImageProcessor;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;

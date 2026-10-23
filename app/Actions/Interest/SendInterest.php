@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions\Interest;
 
-use App\Services\Notification\Notifier;
 use App\Enums\GuardianApprovalStatus;
 use App\Enums\InterestStatus;
 use App\Models\Biodata;
@@ -13,6 +12,7 @@ use App\Models\User;
 use App\Rules\NoContactDetails;
 use App\Services\Block\BlockGuard;
 use App\Services\Interest\InterestTransitions;
+use App\Services\Notification\Notifier;
 use App\Services\Settings\SiteSettings;
 use App\Services\Subscription\ActiveMembership;
 use Illuminate\Database\UniqueConstraintViolationException;

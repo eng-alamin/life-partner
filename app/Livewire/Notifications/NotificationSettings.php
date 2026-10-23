@@ -13,6 +13,7 @@ use App\Exceptions\OtpThrottledException;
 use App\Exceptions\SmsDeliveryException;
 use App\Models\User;
 use App\Services\Notification\NotificationPreferences;
+use App\Services\Sms\SmsGateway;
 use App\Support\SmsNumber;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -143,7 +144,7 @@ class NotificationSettings extends Component
     {
         $user = $this->user();
         $number = (string) $user->phone;
-        $smsReady = app(\App\Services\Sms\SmsGateway::class)->isReady();
+        $smsReady = app(SmsGateway::class)->isReady();
 
         return view('livewire.notifications.notification-settings', [
             'categories' => NotificationCategory::forUser($user),

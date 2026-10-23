@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Livewire\Billing;
 
+use App\Actions\Payment\StartBkashPayment;
 use App\Actions\Payment\StartCheckout;
 use App\Models\Plan;
+use App\Services\Payment\BkashClient;
 use App\Support\Money;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
@@ -44,7 +46,32 @@ class PlanIndex extends Component
         $this->redirectRoute('billing.pay', ['payment' => $payment->code]);
     }
 
-    public function render()
+    /** Pay through the bKash API: the member is sent to the bKash page and comes back to the callback route. */
+    public function buyWithBkash(StartBkashPayment $start, string $code): void
+    {
+        $user = auth()->user();
+
+        if ($user === null) {
+            $this->redirectRoute('login');
+
+            return;
+        }
+
+        if (! $user->hasVerifiedEmail()) {
+            $this->redirectRoute('verification.notice');
+
+            return;
+        }
+
+        $this->resetErrorBag();
+        $this->throttle();
+
+        $url = $start($user, $code, route('billing.bkash.callback'));
+
+        $this->redirect($url);
+    }
+
+    public function render(BkashClient $bkash)
     {
         $plans = Plan::query()->active()->get()->map(fn (Plan $plan): array => [
             'code' => $plan->code,
@@ -61,6 +88,7 @@ class PlanIndex extends Component
         return view('livewire.billing.plan-index', [
             'plans' => $plans,
             'configured' => trim((string) config('lifepartner.billing.bkash_number')) !== '',
+            'bkashApi' => $bkash->isEnabled(),
         ])->title(__('billing.plans.title'));
     }
 

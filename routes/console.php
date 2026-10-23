@@ -22,6 +22,9 @@ Schedule::command('subscriptions:expire')->hourly()->withoutOverlapping();
 // Tell members whose paid period ends soon. Once a day, in the morning.
 Schedule::command('subscriptions:remind')->dailyAt('10:00')->withoutOverlapping();
 
+// Ask bKash about API payments whose result was unclear. Before the stale clean-up can touch them.
+Schedule::command('bkash:reconcile')->everyFiveMinutes()->withoutOverlapping();
+
 // Cancel checkouts that were started but never submitted.
 Schedule::command('payments:cancel-stale')->hourly()->withoutOverlapping();
 

@@ -26,6 +26,7 @@ enum NotificationType: string
     case MembershipExpiring = 'membership.expiring';
     case MembershipExpired = 'membership.expired';
     case StaffPaymentWaiting = 'staff.payment_waiting';
+    case StaffPaymentAttention = 'staff.payment_attention';
     case StaffBiodataWaiting = 'staff.biodata_waiting';
     case StaffBiodataChanged = 'staff.biodata_changed';
     case StaffPhotoWaiting = 'staff.photo_waiting';
@@ -45,7 +46,7 @@ enum NotificationType: string
             self::IdentityApproved, self::IdentityRejected => NotificationCategory::Profile,
             self::PaymentApproved, self::PaymentRejected, self::PaymentRefunded,
             self::MembershipExpiring, self::MembershipExpired => NotificationCategory::Payments,
-            self::StaffPaymentWaiting, self::StaffBiodataWaiting, self::StaffBiodataChanged,
+            self::StaffPaymentWaiting, self::StaffPaymentAttention, self::StaffBiodataWaiting, self::StaffBiodataChanged,
             self::StaffPhotoWaiting, self::StaffReportNew, self::StaffIdentityWaiting,
             self::StaffContactNew => NotificationCategory::Staff,
         };
@@ -62,7 +63,7 @@ enum NotificationType: string
             self::IdentityApproved, self::IdentityRejected => 'account.verification',
             self::PaymentApproved, self::PaymentRejected, self::PaymentRefunded,
             self::MembershipExpiring, self::MembershipExpired => 'billing.index',
-            self::StaffPaymentWaiting => 'admin.payments',
+            self::StaffPaymentWaiting, self::StaffPaymentAttention => 'admin.payments',
             self::StaffBiodataWaiting, self::StaffBiodataChanged => 'admin.approvals',
             self::StaffPhotoWaiting => 'admin.photos',
             self::StaffReportNew => 'admin.reports',
@@ -75,7 +76,7 @@ enum NotificationType: string
     public function permission(): ?StaffPermission
     {
         return match ($this) {
-            self::StaffPaymentWaiting => StaffPermission::ManagePayments,
+            self::StaffPaymentWaiting, self::StaffPaymentAttention => StaffPermission::ManagePayments,
             self::StaffBiodataWaiting, self::StaffBiodataChanged, self::StaffPhotoWaiting => StaffPermission::ReviewBiodata,
             self::StaffReportNew => StaffPermission::HandleReports,
             self::StaffIdentityWaiting => StaffPermission::ReviewIdentity,

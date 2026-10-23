@@ -83,6 +83,14 @@
         </div>
     </x-card>
 
+    @if ($needsAttention)
+        <x-alert type="danger" class="mt-4">
+            <p class="font-semibold">{{ __('admin_payments.review.attention_title') }}</p>
+            <p class="mt-1">{{ __('admin_payments.review.attention_text') }}</p>
+            <x-button type="button" variant="secondary" size="sm" class="mt-3" wire:click="resolveAttention" wire:confirm="{{ __('admin_payments.review.attention_confirm') }}" wire:loading.attr="disabled">{{ __('admin_payments.review.attention_button') }}</x-button>
+        </x-alert>
+    @endif
+
     <x-card class="mt-4">
         <h2 class="text-lg font-semibold text-stone-900">{{ __('admin_payments.review.history') }}</h2>
         <ul class="mt-2 space-y-1 text-stone-700">
@@ -90,6 +98,9 @@
                 <li wire:key="event-{{ $event->id }}">
                     <span class="font-medium">{{ __('admin_payments.events.'.$event->event_type) }}</span>
                     <span class="text-sm text-stone-600">· {{ $event->created_at?->format('Y-m-d H:i') }}</span>
+                    @if ($event->event_type === 'needs_attention' && filled($event->payload['why'] ?? null))
+                        <span class="font-mono text-sm text-stone-600" dir="ltr">({{ $event->payload['why'] }})</span>
+                    @endif
                 </li>
             @endforeach
         </ul>

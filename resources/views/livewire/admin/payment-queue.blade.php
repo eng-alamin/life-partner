@@ -5,13 +5,14 @@
     <div class="mt-4 flex gap-2" role="group" aria-label="{{ __('admin_payments.queue.heading') }}">
         <x-button type="button" size="sm" :variant="$tab === 'review' ? 'primary' : 'secondary'" wire:click="setTab('review')">{{ __('admin_payments.queue.tab_review') }}</x-button>
         <x-button type="button" size="sm" :variant="$tab === 'decided' ? 'primary' : 'secondary'" wire:click="setTab('decided')">{{ __('admin_payments.queue.tab_decided') }}</x-button>
+        <x-button type="button" size="sm" :variant="$tab === 'attention' ? 'primary' : 'secondary'" wire:click="setTab('attention')">{{ __('admin_payments.queue.tab_attention').($attentionCount > 0 ? ' ('.\App\Support\Digits::localize($attentionCount).')' : '') }}</x-button>
     </div>
 
     <div class="mt-4">
         @if ($rows === [])
             <x-empty-state
-                :title="$tab === 'review' ? __('admin_payments.queue.empty_review_title') : __('admin_payments.queue.empty_decided_title')"
-                :text="$tab === 'review' ? __('admin_payments.queue.empty_review_text') : __('admin_payments.queue.empty_decided_text')"
+                :title="__('admin_payments.queue.empty_'.$tab.'_title')"
+                :text="__('admin_payments.queue.empty_'.$tab.'_text')"
             />
         @else
             <ul class="space-y-3">

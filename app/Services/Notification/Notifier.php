@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Notification;
 
+use App\Enums\BiodataStatus;
 use App\Enums\GuardianApprovalStatus;
 use App\Enums\InterestStatus;
-use App\Enums\BiodataStatus;
 use App\Enums\NotificationType;
 use App\Models\Biodata;
 use App\Models\BiodataPhoto;

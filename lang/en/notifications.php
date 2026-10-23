@@ -123,6 +123,10 @@ return [
             'title' => 'A payment is waiting',
             'body' => 'A payment is waiting for your review.',
         ],
+        'staff_payment_attention' => [
+            'title' => 'A bKash payment needs attention',
+            'body' => 'bKash took money that we could not match to a payment. Nothing was given to the member. Open Payments > Needs attention.',
+        ],
         'staff_biodata_waiting' => [
             'title' => 'A biodata is waiting',
             'body' => 'A biodata is waiting for your review.',

@@ -29,8 +29,7 @@ class AccountStatusMail extends Mailable implements ShouldQueue
         public readonly string $recipientName,
         public readonly string $kind,
         public readonly ?string $supportEmail,
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

@@ -6,8 +6,8 @@ namespace App\Policies;
 
 use App\Enums\BiodataStatus;
 use App\Enums\HiddenSource;
-use App\Models\Biodata;
 use App\Enums\StaffPermission;
+use App\Models\Biodata;
 use App\Models\User;
 
 /**

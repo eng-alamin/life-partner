@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Actions\Report;
 
 use App\Enums\NotificationType;
-use App\Services\Notification\Notifier;
 use App\Enums\ReportReason;
 use App\Enums\ReportStatus;
 use App\Models\Biodata;
 use App\Models\Report;
 use App\Models\User;
+use App\Services\Notification\Notifier;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;

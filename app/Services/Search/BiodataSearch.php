@@ -58,7 +58,7 @@ final class BiodataSearch
 
     /**
      * @param  User|null  $member  a signed-in, active, verified member, or null for a guest
-     * @return Paginator<int, Biodata>|null  null when the type is not known yet
+     * @return Paginator<int, Biodata>|null null when the type is not known yet
      */
     public function search(SearchCriteria $criteria, ?User $member, int $page): ?Paginator
     {

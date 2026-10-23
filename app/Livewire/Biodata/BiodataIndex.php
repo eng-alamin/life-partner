@@ -21,6 +21,7 @@ use App\Services\Search\BiodataVisibility;
 use App\Services\Search\SearchCriteria;
 use App\Support\Countries;
 use App\Support\Digits;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
@@ -271,7 +272,7 @@ class BiodataIndex extends Component
         $this->profession = trim((string) preg_replace('/\s+/u', ' ', $this->profession));
     }
 
-    /** @return \Illuminate\Support\Collection<int, SavedSearch> */
+    /** @return Collection<int, SavedSearch> */
     private function savedSearchesFor(User $member)
     {
         return SavedSearch::query()

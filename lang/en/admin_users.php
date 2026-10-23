@@ -54,6 +54,7 @@ return [
 
         'suspend_heading' => 'Suspend this account',
         'suspend_text' => 'The member is signed out at once and can not log in. Their biodata disappears from search and profiles. The biodata is not deleted; it comes back when the account is reactivated.',
+        'suspend_cancels' => 'Interest requests that are still waiting, sent or received, are cancelled at once and the other side is not told why. Accepted interests stay as they are. The member gets one email saying the account is suspended; the reason is not in it.',
         'reason_label' => 'Reason for suspension',
         'reason_hint' => 'Only staff can read this. The member is not shown it. 3 to 500 characters.',
         'suspend_button' => 'Suspend',

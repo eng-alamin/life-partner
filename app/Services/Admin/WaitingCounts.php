@@ -21,7 +21,8 @@ use App\Models\User;
  * How many things wait for one staff member. A number is returned only for what
  * this person may actually handle, and it matches the queue the person would open
  * (a reviewer's own biodata, photos and identity request are never in their queue,
- * so never counted).
+ * so never counted). Two keys point to the payments page: "payments" (manual
+ * payments under review) and "payments_attention" (bKash payments flagged for staff).
  */
 final class WaitingCounts
 {
@@ -30,6 +31,7 @@ final class WaitingCounts
         'biodata' => 'admin.approvals',
         'photos' => 'admin.photos',
         'payments' => 'admin.payments',
+        'payments_attention' => 'admin.payments',
         'reports' => 'admin.reports',
         'identity' => 'admin.verification',
     ];
@@ -55,6 +57,9 @@ final class WaitingCounts
             $counts['payments'] = Payment::query()
                 ->where('status', PaymentStatus::UnderReview->value)
                 ->count();
+
+            // bKash payments where money may have moved but nothing was granted.
+            $counts['payments_attention'] = Payment::query()->needsAttention()->count();
         }
 
         if ($user->can('viewAny', Report::class)) {

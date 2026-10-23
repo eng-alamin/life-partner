@@ -8,7 +8,7 @@
 @endphp
 
 <div {{ $attributes->class(['glass p-5']) }}>
-    <p class="text-stone-600" aria-live="polite">
+    <p id="stepper-label" class="text-stone-600" aria-live="polite">
         {{ __('common.step_of', [
             'current' => \App\Support\Digits::localize($current),
             'total' => \App\Support\Digits::localize($total),
@@ -19,6 +19,7 @@
     <div
         class="mt-2 h-2 rounded-full bg-stone-200"
         role="progressbar"
+        aria-labelledby="stepper-label"
         aria-valuemin="1"
         aria-valuemax="{{ $total }}"
         aria-valuenow="{{ $current }}"

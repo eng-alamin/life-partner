@@ -3,6 +3,12 @@
 <div>
     <h1 class="text-2xl font-bold text-brand-800">{{ __('billing.index.heading') }}</h1>
 
+    @if (in_array(session('bkash_result'), ['paid', 'failed', 'cancelled', 'pending', 'attention', 'ignored'], true))
+        <x-alert :type="match (session('bkash_result')) { 'paid' => 'success', 'attention', 'failed' => 'danger', default => 'warning' }" class="mt-4">
+            {{ __('bkash.result.'.session('bkash_result')) }}
+        </x-alert>
+    @endif
+
     <div class="mt-4 grid gap-4 sm:grid-cols-2">
         <x-card>
             <p class="text-sm text-stone-600">{{ __('billing.index.credits') }}</p>

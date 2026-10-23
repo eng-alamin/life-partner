@@ -12,7 +12,7 @@
         'primary' => 'bg-linear-to-b from-brand-600 to-brand-800 text-white shadow-md shadow-brand-900/25 hover:from-brand-700 hover:to-brand-900',
         'secondary' => 'border border-stone-300 bg-white/80 text-stone-800 hover:bg-white',
         'ghost' => 'text-brand-700 hover:bg-brand-50',
-        'gold' => 'bg-linear-to-b from-gold-500 to-gold-700 text-white shadow-md shadow-gold-700/25 hover:brightness-110',
+        'gold' => 'bg-linear-to-b from-gold-600 to-gold-700 text-white shadow-md shadow-gold-700/25 hover:from-gold-700 hover:to-gold-800',
         'danger' => 'bg-red-700 text-white hover:bg-red-800',
         'light' => 'bg-white text-brand-800 shadow-lg shadow-black/10 hover:bg-brand-50',
     ];

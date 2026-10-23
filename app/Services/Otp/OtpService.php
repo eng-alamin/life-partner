@@ -30,9 +30,7 @@ class OtpService
 
     public const MAX_SENDS_PER_HOUR = 5;
 
-    public function __construct(private readonly OtpChannel $channel)
-    {
-    }
+    public function __construct(private readonly OtpChannel $channel) {}
 
     /**
      * @throws OtpThrottledException when the resend cooldown or hourly cap is hit

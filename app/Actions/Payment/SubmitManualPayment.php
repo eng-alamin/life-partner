@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Actions\Payment;
 
 use App\Enums\NotificationType;
-use App\Services\Notification\Notifier;
 use App\Enums\PaymentGateway;
 use App\Enums\PaymentStatus;
 use App\Models\Payment;
 use App\Models\PaymentEvent;
 use App\Models\User;
+use App\Services\Notification\Notifier;
 use App\Services\Payment\ProofImageProcessor;
 use App\Support\Digits;
 use App\Support\TrxId;

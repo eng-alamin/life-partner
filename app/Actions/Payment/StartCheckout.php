@@ -12,12 +12,14 @@ use App\Models\Payment;
 use App\Models\PaymentEvent;
 use App\Models\Plan;
 use App\Models\User;
+use App\Services\Payment\BkashClient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Starts a manual bKash payment for a plan, found by its code.
+ * Starts a payment for a plan, found by its code. The default is a manual bKash payment; the bKash
+ * API is chosen with the $gateway argument (and only works while the API is switched on).
  *
  * - The amount, name, credits and days are copied from OUR plan row. Nothing about
  *   the price comes from the browser.
@@ -31,18 +33,30 @@ use Illuminate\Validation\ValidationException;
  */
 final class StartCheckout
 {
-    public function __invoke(User $user, string $planCode): Payment
+    public function __construct(private readonly BkashClient $bkash) {}
+
+    public function __invoke(User $user, string $planCode, PaymentGateway $gateway = PaymentGateway::ManualBkash): Payment
     {
         Gate::forUser($user)->authorize('create', Payment::class);
 
-        if (trim((string) config('lifepartner.billing.bkash_number')) === '') {
+        if (! $this->isOpen($gateway)) {
             throw $this->error('not_configured');
         }
 
-        return DB::transaction(fn (): Payment => $this->start($user, $planCode));
+        return DB::transaction(fn (): Payment => $this->start($user, $planCode, $gateway));
     }
 
-    private function start(User $user, string $planCode): Payment
+    /** A gateway is open when it is set up: the manual flow needs the bKash number, the API needs its switch and keys. */
+    private function isOpen(PaymentGateway $gateway): bool
+    {
+        return match ($gateway) {
+            PaymentGateway::ManualBkash => trim((string) config('lifepartner.billing.bkash_number')) !== '',
+            PaymentGateway::Bkash => $this->bkash->isEnabled(),
+            default => false,
+        };
+    }
+
+    private function start(User $user, string $planCode, PaymentGateway $gateway): Payment
     {
         User::query()->whereKey($user->getKey())->lockForUpdate()->first();
 
@@ -67,7 +81,7 @@ final class StartCheckout
             ->get();
 
         foreach ($open as $payment) {
-            if ($payment->plan_code === $plan->code && $payment->amount_minor === $plan->price_minor) {
+            if ($payment->gateway === $gateway && $payment->plan_code === $plan->code && $payment->amount_minor === $plan->price_minor) {
                 return $payment;
             }
         }
@@ -109,14 +123,14 @@ final class StartCheckout
             'daily_interest_limit' => $plan->daily_interest_limit,
             'amount_minor' => $plan->price_minor,
             'currency' => $plan->currency,
-            'gateway' => PaymentGateway::ManualBkash->value,
+            'gateway' => $gateway->value,
             'status' => PaymentStatus::Pending->value,
         ])->save();
 
         $event = new PaymentEvent;
         $event->forceFill([
             'payment_id' => $payment->getKey(),
-            'gateway' => PaymentGateway::ManualBkash->value,
+            'gateway' => $gateway->value,
             'event_type' => 'init',
             'payload' => ['plan_code' => $plan->code, 'amount_minor' => $plan->price_minor],
             'processed_at' => now(),

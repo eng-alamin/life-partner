@@ -11,10 +11,10 @@
         $active = request()->routeIs($route, $route.'.*');
 
         $base = [
-            'top' => 'rounded-lg px-3 py-2 font-medium',
+            'top' => 'inline-flex min-h-11 items-center rounded-lg px-3 font-medium',
             'bottom' => 'flex min-h-14 flex-col items-center justify-center px-1 text-center text-sm leading-tight font-medium',
-            'side' => 'block rounded-lg px-3 py-2.5 font-medium',
-        ][$variant] ?? 'rounded-lg px-3 py-2 font-medium';
+            'side' => 'flex min-h-11 items-center rounded-lg px-3 font-medium',
+        ][$variant] ?? 'inline-flex min-h-11 items-center rounded-lg px-3 font-medium';
 
         $state = [
             'top' => $active ? 'bg-brand-50 text-brand-800' : 'text-stone-700 hover:bg-white/70',

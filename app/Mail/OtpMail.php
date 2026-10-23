@@ -23,8 +23,7 @@ class OtpMail extends Mailable implements ShouldQueue
         public readonly string $code,
         public readonly OtpPurpose $purpose,
         public readonly int $ttlMinutes,
-    ) {
-    }
+    ) {}
 
     public function envelope(): Envelope
     {

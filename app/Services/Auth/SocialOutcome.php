@@ -12,8 +12,7 @@ final class SocialOutcome
         public readonly ?User $user,
         public readonly bool $needsEmailProof,
         public readonly bool $registrationClosed = false,
-    ) {
-    }
+    ) {}
 
     public static function login(User $user): self
     {

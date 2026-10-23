@@ -18,9 +18,7 @@ use Laravel\Socialite\Contracts\User as SocialUser;
  */
 class SocialAuthService
 {
-    public function __construct(private readonly SiteSettings $settings)
-    {
-    }
+    public function __construct(private readonly SiteSettings $settings) {}
 
     public function handle(SocialProvider $provider, SocialUser $social): SocialOutcome
     {

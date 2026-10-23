@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanSeeder::class);
         // Starting text for the content pages. Legal pages stay unpublished until the owner has checked them.
         $this->call(PageSeeder::class);
+        $this->call(RolesAndPermissionsSeeder::class);
 
         // A demo account only for local development, never in production.
         if (app()->environment('local')) {

@@ -32,9 +32,7 @@ final class SaveSettings
 
     public const ADDRESS_MAX = 200;
 
-    public function __construct(private readonly SiteSettings $settings)
-    {
-    }
+    public function __construct(private readonly SiteSettings $settings) {}
 
     /** @param  array<string, mixed>  $input  registration_open, guardian_approval, contact_email, contact_phone, contact_address_bn, contact_address_en */
     public function __invoke(User $staff, array $input): void
@@ -89,7 +87,7 @@ final class SaveSettings
 
     /**
      * @param  array<string, mixed>  $input
-     * @return array<string, ?string>  One entry for every SettingKey.
+     * @return array<string, ?string> One entry for every SettingKey.
      */
     private function validated(array $input): array
     {

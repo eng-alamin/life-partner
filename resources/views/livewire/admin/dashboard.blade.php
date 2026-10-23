@@ -10,10 +10,7 @@
             'drafts' => $drafts,
             'members' => $members,
         ] as $key => $value)
-            <x-card variant="small" padding="p-4">
-                <dt class="text-sm font-medium text-stone-600">{{ __('admin.dashboard.stats.'.$key) }}</dt>
-                <dd class="mt-1 text-3xl font-bold text-brand-800">{{ $value }}</dd>
-            </x-card>
+            <x-stat-card :label="__('admin.dashboard.stats.'.$key)" :value="$value" />
         @endforeach
     </dl>
 
@@ -28,7 +25,7 @@
         <ul class="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             @foreach ($waiting as $key => $count)
                 <li>
-                    <a href="{{ route($waitingRoutes[$key]) }}" class="block rounded-2xl focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600">
+                    <a href="{{ route($waitingRoutes[$key], $key === 'payments_attention' ? ['tab' => 'attention'] : []) }}" class="block rounded-2xl transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 motion-reduce:hover:translate-y-0">
                         <x-card variant="small" padding="p-4">
                             <span class="block text-sm font-medium text-stone-600">{{ __('admin.waiting.items.'.$key) }}</span>
                             <span class="mt-1 block text-3xl font-bold text-brand-800">{{ $count }}</span>

@@ -39,7 +39,14 @@
 
                         <div class="mt-auto pt-4">
                             @auth
-                                <x-button wire:click="buy('{{ $plan['code'] }}')" wire:loading.attr="disabled" wire:target="buy" class="w-full">{{ __('billing.plans.buy') }}</x-button>
+                                @if ($bkashApi)
+                                    <x-button wire:click="buyWithBkash('{{ $plan['code'] }}')" wire:loading.attr="disabled" wire:target="buyWithBkash,buy" class="w-full">{{ __('bkash.plans.pay_with_bkash') }}</x-button>
+                                    @if ($configured)
+                                        <x-button wire:click="buy('{{ $plan['code'] }}')" wire:loading.attr="disabled" wire:target="buyWithBkash,buy" variant="secondary" class="mt-2 w-full">{{ __('bkash.plans.pay_manually') }}</x-button>
+                                    @endif
+                                @else
+                                    <x-button wire:click="buy('{{ $plan['code'] }}')" wire:loading.attr="disabled" wire:target="buy" class="w-full">{{ __('billing.plans.buy') }}</x-button>
+                                @endif
                             @else
                                 <x-button :href="route('login')" class="w-full">{{ __('billing.plans.login_to_buy') }}</x-button>
                             @endauth
