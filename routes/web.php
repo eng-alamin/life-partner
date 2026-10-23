@@ -1,13 +1,17 @@
 <?php
 
+use App\Http\Controllers\Account\DownloadMemberDataController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\IdentityFileController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\PaymentProofController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\SuccessStoryController;
 use App\Http\Middleware\PrivateLinkHeaders;
 use App\Livewire\Account\DeleteAccount;
+use App\Livewire\Account\ExportData;
 use App\Livewire\Account\IdentityVerificationPage;
 use App\Livewire\Auth\CompleteSocialSignup;
 use App\Livewire\Auth\ForgotPassword;
@@ -17,9 +21,13 @@ use App\Livewire\Auth\VerifyEmailNotice;
 use App\Livewire\Admin\ActivityLogList;
 use App\Livewire\Admin\ApprovalQueue;
 use App\Livewire\Admin\ApprovalReview;
+use App\Livewire\Admin\ContactInbox;
+use App\Livewire\Admin\ContactMessageShow;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\DeletionList;
 use App\Livewire\Admin\HiddenQueue;
+use App\Livewire\Admin\IdentityQueue;
+use App\Livewire\Admin\IdentityReview;
 use App\Livewire\Admin\PageForm;
 use App\Livewire\Admin\PageList;
 use App\Livewire\Admin\PaymentQueue;
@@ -30,6 +38,8 @@ use App\Livewire\Admin\PhotoQueue;
 use App\Livewire\Admin\ReportQueue;
 use App\Livewire\Admin\ReportReview;
 use App\Livewire\Admin\SettingsForm;
+use App\Livewire\Admin\StoryForm;
+use App\Livewire\Admin\StoryList;
 use App\Livewire\Admin\UserList;
 use App\Livewire\Admin\UserShow;
 use App\Livewire\Biodata\BiodataIndex;
@@ -56,6 +66,15 @@ foreach (\App\Models\Page::SLUGS as $pageSlug) {
         ->middleware('throttle:120,1')
         ->name('pages.'.$pageSlug);
 }
+
+// Success stories: only published stories with a valid consent; anything else is a plain 404.
+Route::get('/success-stories', [SuccessStoryController::class, 'index'])
+    ->middleware('throttle:120,1')
+    ->name('stories.index');
+Route::get('/success-stories/{code}', [SuccessStoryController::class, 'show'])
+    ->where('code', '[a-z0-9]{24}')
+    ->middleware('throttle:120,1')
+    ->name('stories.show');
 
 // Public search: guests see cards only, with fewer filters (enforced on the server).
 Route::livewire('/biodatas', BiodataIndex::class)->name('biodatas.index');
@@ -101,6 +120,12 @@ Route::middleware(['auth', 'account.active'])->group(function (): void {
 
         // The member asks to delete their own account (14-day wait, can be cancelled).
         Route::livewire('/account/delete', DeleteAccount::class)->name('account.delete');
+
+        // The member downloads a copy of their own data (password step, then a one-time download link).
+        Route::livewire('/account/export', ExportData::class)->name('account.export');
+        Route::get('/account/export/download', DownloadMemberDataController::class)
+            ->middleware('throttle:10,1')
+            ->name('account.export.download');
 
         // The member sends a picture of an identity document to get the "identity verified" badge.
         Route::livewire('/account/verification', IdentityVerificationPage::class)->name('account.verification');
@@ -149,8 +174,21 @@ Route::middleware(['auth', 'account.active'])->group(function (): void {
                 Route::livewire('/approvals/{biodata}', ApprovalReview::class)->name('approvals.show');
                 Route::livewire('/hidden', HiddenQueue::class)->name('hidden');
                 Route::livewire('/photos', PhotoQueue::class)->name('photos');
+                Route::livewire('/verification', IdentityQueue::class)->name('verification');
+                Route::livewire('/verification/{verification}', IdentityReview::class)
+                    ->where('verification', '[a-z0-9]{24}')
+                    ->name('verification.show');
+                // Identity pictures: encrypted private files, checked on every request (see IdentityFileController).
+                Route::get('/verification/{verification}/{side}', [IdentityFileController::class, 'show'])
+                    ->where(['verification' => '[a-z0-9]{24}', 'side' => 'front|back'])
+                    ->middleware('throttle:60,1')
+                    ->name('verification.file');
                 Route::livewire('/reports', ReportQueue::class)->name('reports');
                 Route::livewire('/reports/{report}', ReportReview::class)->name('reports.show');
+                Route::livewire('/contact', ContactInbox::class)->name('contact');
+                Route::livewire('/contact/{message}', ContactMessageShow::class)
+                    ->where('message', '[a-z0-9]{24}')
+                    ->name('contact.show');
                 Route::livewire('/plans', PlanList::class)->name('plans');
                 Route::livewire('/plans/create', PlanForm::class)->name('plans.create');
                 Route::livewire('/plans/{plan}/edit', PlanForm::class)
@@ -166,6 +204,11 @@ Route::middleware(['auth', 'account.active'])->group(function (): void {
                 Route::livewire('/content/{slug}/edit', PageForm::class)
                     ->where('slug', '[a-z]+(?:-[a-z]+)*')
                     ->name('content.edit');
+                Route::livewire('/stories', StoryList::class)->name('stories');
+                Route::livewire('/stories/create', StoryForm::class)->name('stories.create');
+                Route::livewire('/stories/{story}/edit', StoryForm::class)
+                    ->where('story', '[a-z0-9]{24}')
+                    ->name('stories.edit');
                 Route::livewire('/settings', SettingsForm::class)->name('settings');
                 Route::livewire('/payments', PaymentQueue::class)->name('payments');
                 Route::livewire('/payments/{payment}', PaymentReview::class)

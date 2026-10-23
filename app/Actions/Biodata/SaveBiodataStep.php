@@ -140,6 +140,17 @@ final class SaveBiodataStep
 
         $biodata->fill($fields);
 
+        // The badge vouches for the birth date and the type. If either changes, it is gone.
+        if ($biodata->exists && $biodata->identity_verified_at !== null && $biodata->isDirty(['birth_date', 'type'])) {
+            $biodata->forceFill(['identity_verified_at' => null]);
+
+            activity('identity')
+                ->causedBy((int) $biodata->user_id)
+                ->performedOn($biodata)
+                ->withProperties(['biodata_code' => $biodata->public_code])
+                ->log('identity.badge_removed');
+        }
+
         return $biodata->isDirty() || ! $biodata->exists;
     }
 

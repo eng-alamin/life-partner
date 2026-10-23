@@ -9,7 +9,9 @@ use App\Enums\IdentityStatus;
 use App\Models\Biodata;
 use App\Models\IdentityVerification;
 use App\Models\User;
+use App\Enums\NotificationType;
 use App\Services\Identity\IdentityImageProcessor;
+use App\Services\Notification\Notifier;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Crypt;
@@ -35,7 +37,10 @@ final class SubmitIdentityVerification
 {
     private const DISK = 'identity_documents';
 
-    public function __construct(private readonly IdentityImageProcessor $images) {}
+    public function __construct(
+        private readonly IdentityImageProcessor $images,
+        private readonly Notifier $notifier,
+    ) {}
 
     public function __invoke(User $user, string $documentType, UploadedFile $front, ?UploadedFile $back = null): IdentityVerification
     {
@@ -67,7 +72,12 @@ final class SubmitIdentityVerification
                 $paths[] = $backPath;
             }
 
-            return DB::transaction(fn (): IdentityVerification => $this->create($user, $type, $frontPath, $backPath));
+            $verification = DB::transaction(fn (): IdentityVerification => $this->create($user, $type, $frontPath, $backPath));
+
+            // After the commit, so a rolled-back request tells nobody. A failure here never breaks the request.
+            $this->notifier->toStaff(NotificationType::StaffIdentityWaiting);
+
+            return $verification;
         } catch (UniqueConstraintViolationException) {
             $this->discard($paths);
 

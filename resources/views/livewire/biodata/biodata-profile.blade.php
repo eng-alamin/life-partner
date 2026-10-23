@@ -6,6 +6,9 @@
                 {{ __('overview.code') }}:
                 <span class="font-mono font-semibold text-stone-900">{{ $code }}</span>
             </p>
+            @if (! empty($card['identity_verified']))
+                <p class="mt-2"><x-badge variant="gold">&#10003; {{ __('identity.badge') }}</x-badge></p>
+            @endif
         </div>
         <x-button :href="route('biodatas.index')" variant="secondary" size="sm">{{ __('search.profile.back') }}</x-button>
     </div>

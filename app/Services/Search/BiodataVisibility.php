@@ -259,6 +259,7 @@ final class BiodataVisibility
             'location' => $this->location($biodata),
             'profession' => $biodata->profession,
             'practicing_level' => $biodata->practicing_level?->label(),
+            'identity_verified' => $biodata->isIdentityVerified(),
         ];
     }
 

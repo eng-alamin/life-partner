@@ -7,6 +7,7 @@ namespace App\Actions\Account;
 use App\Enums\BiodataStatus;
 use App\Models\Biodata;
 use App\Models\User;
+use App\Services\Identity\IdentityFileStore;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -46,8 +47,9 @@ final class PurgeDeletedAccount
     {
         $photoFiles = [];
         $proofFiles = [];
+        $identityFiles = [];
 
-        $result = DB::transaction(function () use ($userId, &$photoFiles, &$proofFiles): string {
+        $result = DB::transaction(function () use ($userId, &$photoFiles, &$proofFiles, &$identityFiles): string {
             $user = User::query()->whereKey($userId)->lockForUpdate()->first();
 
             if ($user === null
@@ -79,6 +81,7 @@ final class PurgeDeletedAccount
             }
 
             $proofFiles = $this->purgePayments($userId);
+            $identityFiles = $this->purgeIdentity($userId);
             $this->purgeMemberData($user);
             $this->anonymise($user);
 
@@ -99,7 +102,34 @@ final class PurgeDeletedAccount
             Storage::disk('payment_proofs')->delete($proofFiles);
         }
 
+        if ($identityFiles !== []) {
+            app(IdentityFileStore::class)->delete(...$identityFiles);
+        }
+
         return $result;
+    }
+
+    /**
+     * Identity requests hold no document number, but they are personal. The rows and any waiting
+     * pictures go. (The user row is only soft deleted, so nothing cascades by itself.)
+     *
+     * @return list<string> picture files to delete after commit
+     */
+    private function purgeIdentity(int $userId): array
+    {
+        $files = [];
+
+        foreach (DB::table('identity_verifications')->where('user_id', $userId)->get(['front_path', 'back_path']) as $row) {
+            foreach ([$row->front_path, $row->back_path] as $path) {
+                if ($path !== null && $path !== '') {
+                    $files[] = (string) $path;
+                }
+            }
+        }
+
+        DB::table('identity_verifications')->where('user_id', $userId)->delete();
+
+        return $files;
     }
 
     /** @return list<string> photo files to delete after commit */
@@ -140,6 +170,7 @@ final class PurgeDeletedAccount
             'completion_pct' => 0,
             'highest_education_rank' => null,
             'photo_visibility' => 'hidden',
+            'identity_verified_at' => null,
             'hidden_at' => null,
             'hidden_source' => null,
             'hidden_from' => null,

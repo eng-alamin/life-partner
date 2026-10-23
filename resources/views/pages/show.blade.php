@@ -9,6 +9,10 @@
 
         @if ($page->slug === 'contact')
             <x-contact-details class="mt-6" />
+
+            <div class="mt-6">
+                <livewire:contact.contact-form />
+            </div>
         @endif
     </article>
 </x-layouts::marketing>

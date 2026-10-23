@@ -63,6 +63,15 @@ final class SiteSettings
         return $this->get(SettingKey::RegistrationOpen) !== '0';
     }
 
+    /**
+     * Must the receiver's guardian approve before contact opens? Staff choose this on the settings page.
+     * Until they save, LP_GUARDIAN_APPROVAL in .env decides (default: yes). Only an explicit "0" means no.
+     */
+    public function guardianApprovalRequired(): bool
+    {
+        return $this->get(SettingKey::GuardianApproval) !== '0';
+    }
+
     public function contactEmail(): ?string
     {
         return $this->get(SettingKey::ContactEmail);

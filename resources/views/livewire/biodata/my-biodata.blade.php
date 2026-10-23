@@ -148,6 +148,10 @@
     </p>
 
     <p class="text-sm">
+        <a href="{{ route('account.export') }}" class="inline-flex min-h-11 items-center font-semibold text-brand-700 underline underline-offset-2">{{ __('account_export.link') }}</a>
+    </p>
+
+    <p class="text-sm">
         <a href="{{ route('account.delete') }}" class="inline-flex min-h-11 items-center text-red-800 underline underline-offset-2 hover:text-red-900">{{ __('account_deletion.link') }}</a>
     </p>
 </div>

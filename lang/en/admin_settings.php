@@ -13,6 +13,12 @@ return [
         'status_closed' => 'Closed now',
     ],
 
+    'guardian' => [
+        'heading' => 'Guardian approval',
+        'label' => 'The receiver\'s guardian must approve before contact opens',
+        'hint' => 'When on, and the receiver has a guardian who can approve, contact details open only after the guardian agrees through the one-time link. When off, contact opens as soon as the receiver accepts. This applies to new interests only. Interests already sent keep the rule they were sent with.',
+    ],
+
     'contact' => [
         'heading' => 'Contact details',
         'intro' => 'These details are shown to everyone on the contact page and at the bottom of every page (the footer). Leave a field empty to hide it. Give only office or support details, never a private number or a home address.',

@@ -16,4 +16,6 @@ enum StaffPermission: string
     case ManageUsers = 'users.manage';
     case ManageSettings = 'settings.manage';
     case ReviewIdentity = 'identity.review';
+    case HandleContact = 'contact.handle';
+    case ManageStories = 'stories.manage';
 }

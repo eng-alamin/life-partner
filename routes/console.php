@@ -30,3 +30,9 @@ Schedule::command('notifications:prune')->daily();
 
 // Purge accounts whose 14-day deletion wait is over. Night time, one run at a time.
 Schedule::command('accounts:purge-deleted')->dailyAt('03:00')->withoutOverlapping();
+
+// Close identity requests that waited too long and delete leftover identity pictures.
+Schedule::command('identity:cleanup')->dailyAt('03:30')->withoutOverlapping();
+
+// Delete contact form messages older than 180 days. Night time, one run at a time.
+Schedule::command('contact:purge-old')->dailyAt('04:00')->withoutOverlapping();

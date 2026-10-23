@@ -33,7 +33,9 @@ return new class extends Migration
             // index then allows only ONE open request per member, even when two requests arrive together.
             $table->unsignedBigInteger('open_key')->nullable()->unique();
 
-            $table->timestamp('submitted_at');
+            // useCurrent() gives the column a real default, so MySQL servers that run with
+            // explicit_defaults_for_timestamp = OFF do not reject the table (error 1067).
+            $table->timestamp('submitted_at')->useCurrent();
             $table->timestamp('reviewed_at')->nullable();
             $table->foreignId('reviewed_by')->nullable()->constrained('users')->nullOnDelete();
             // One value of App\Enums\IdentityRejectionReason, never free text.

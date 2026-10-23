@@ -14,6 +14,10 @@
         <x-badge variant="brand">{{ $card['type'] }}</x-badge>
     </div>
 
+    @if (! empty($card['identity_verified']))
+        <p class="mt-2"><x-badge variant="gold">&#10003; {{ __('identity.badge') }}</x-badge></p>
+    @endif
+
     <dl class="mt-3 space-y-1 text-stone-700">
         @if ($card['age'] !== null)
             <div>

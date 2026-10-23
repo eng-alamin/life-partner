@@ -24,6 +24,8 @@ class SettingsForm extends Component
 {
     public bool $registration_open = true;
 
+    public bool $guardian_approval = true;
+
     public string $contact_email = '';
 
     public string $contact_phone = '';
@@ -37,6 +39,7 @@ class SettingsForm extends Component
         Gate::authorize('viewAny', Setting::class);
 
         $this->registration_open = $settings->registrationOpen();
+        $this->guardian_approval = $settings->guardianApprovalRequired();
         $this->contact_email = $settings->get(SettingKey::ContactEmail) ?? '';
         $this->contact_phone = $settings->get(SettingKey::ContactPhone) ?? '';
         $this->contact_address_bn = $settings->get(SettingKey::ContactAddressBn) ?? '';
@@ -52,6 +55,7 @@ class SettingsForm extends Component
 
         $save(auth()->user(), $this->only([
             'registration_open',
+            'guardian_approval',
             'contact_email',
             'contact_phone',
             'contact_address_bn',

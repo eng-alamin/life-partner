@@ -10,9 +10,5 @@
     <meta name="description" content="{{ $description }}">
 @endif
 
-{{-- Bangla-capable font. Swap for self-hosted @fontsource/hind-siliguri once approved. --}}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+{{-- The Bangla font (Hind Siliguri) is self-hosted and comes with app.css. --}}
 @vite(['resources/css/app.css', 'resources/js/app.js'])

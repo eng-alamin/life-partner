@@ -24,6 +24,7 @@ return [
         'biodata' => 'Biodata',
         'billing' => 'Billing',
         'block' => 'Blocks',
+        'identity' => 'Identity',
         'interest' => 'Interests',
         'moderation' => 'Moderation',
         'notification' => 'Notifications',
@@ -33,12 +34,14 @@ return [
         'report' => 'Reports',
         'settings' => 'Settings',
         'staff' => 'Staff roles',
+        'story' => 'Success stories',
         'user' => 'Members',
     ],
     'events' => [
         'account' => [
             'deletion_cancelled' => 'Account deletion cancelled',
             'deletion_requested' => 'Account deletion requested',
+            'exported' => 'Member downloaded own data',
             'purged' => 'Account data deleted',
         ],
         'biodata' => [
@@ -57,8 +60,23 @@ return [
         'contact' => [
             'unlocked' => 'Contact unlocked with a credit',
         ],
+        'contact_message' => [
+            'handled' => 'Contact message marked as handled',
+            'spam' => 'Contact message marked as spam',
+            'reopened' => 'Contact message opened again',
+            'purged' => 'Old contact messages deleted',
+        ],
         'credits' => [
             'granted' => 'Credits granted',
+        ],
+        'identity' => [
+            'submitted' => 'Identity request sent',
+            'approved' => 'Identity request approved',
+            'rejected' => 'Identity request rejected',
+            'file_opened' => 'Identity picture opened by staff',
+            'expired' => 'Identity request closed after waiting too long',
+            'badge_removed' => 'Identity badge removed after a verified fact changed',
+            'files_cleaned' => 'Leftover identity pictures deleted',
         ],
         'interest' => [
             'guardian_link_issued' => 'Guardian link created',
@@ -100,6 +118,14 @@ return [
             'resolved' => 'Report resolved',
             'dismissed' => 'Report dismissed',
             'hidden' => 'Report resolved and biodata hidden',
+        ],
+        'story' => [
+            'created' => 'Success story created',
+            'updated' => 'Success story updated',
+            'published' => 'Success story published',
+            'unpublished' => 'Success story taken off the public page',
+            'consent_withdrawn' => 'Consent withdrawn for a success story',
+            'deleted' => 'Success story deleted',
         ],
         'settings' => [
             'updated' => 'Settings updated',

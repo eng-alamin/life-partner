@@ -18,9 +18,11 @@
             'admin.deletions' => 'nav.deletions',
             'admin.verification' => 'nav.verification',
             'admin.reports' => 'nav.reports',
+            'admin.contact' => 'nav.contact_inbox',
             'admin.plans' => 'nav.plans',
             'admin.payments' => 'nav.payments',
             'admin.content' => 'nav.content',
+            'admin.stories' => 'nav.stories_admin',
             'admin.activity-log' => 'nav.activity_log',
             'admin.settings' => 'nav.admin_settings',
         ];
@@ -32,6 +34,21 @@
         // Only an admin with payments.manage sees the payments link.
         if (! auth()->user()?->can(\App\Enums\StaffPermission::ManagePayments->value)) {
             unset($menu['admin.payments']);
+        }
+
+        // Only staff with contact.handle see the contact messages link.
+        if (! auth()->user()?->can(\App\Enums\StaffPermission::HandleContact->value)) {
+            unset($menu['admin.contact']);
+        }
+
+        // Only an admin with identity.review sees the identity link.
+        if (! auth()->user()?->can(\App\Enums\StaffPermission::ReviewIdentity->value)) {
+            unset($menu['admin.verification']);
+        }
+
+        // Only staff with stories.manage see the success stories link.
+        if (! auth()->user()?->can(\App\Enums\StaffPermission::ManageStories->value)) {
+            unset($menu['admin.stories']);
         }
 
         // Only an admin with pages.manage sees the content link.

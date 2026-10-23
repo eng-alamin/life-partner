@@ -168,5 +168,22 @@ return [
         'expired' => 'The document has expired',
         'not_accepted' => 'This kind of document is not accepted',
         'other' => 'Other reason',
+        'timed_out' => 'The request waited too long and was closed. You can send a new one',
+    ],
+
+    'story_status' => [
+        'draft' => 'Draft',
+        'published' => 'Published',
+    ],
+    'story_consent_giver' => [
+        'groom' => 'The groom',
+        'bride' => 'The bride',
+        'both' => 'Both of them',
+    ],
+    'story_consent_form' => [
+        'written' => 'In writing',
+        'message' => 'By message',
+        'phone' => 'By phone',
+        'in_person' => 'In person',
     ],
 ];

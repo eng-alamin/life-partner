@@ -14,6 +14,7 @@ return [
         'staff_only' => 'Only authorized staff can open the pictures. Every opening is recorded.',
         'badge_only' => 'Other members see only the "identity verified" badge, never your document.',
     ],
+    'badge' => 'Identity verified',
     'state' => [
         'verified' => 'Your identity is verified. The badge is shown on your biodata.',
         'pending' => 'Your request of :date is waiting for review. A request that waits more than :days days is cancelled and its pictures are deleted.',

@@ -26,6 +26,7 @@ return [
             'photos' => 'Photos to review',
             'payments' => 'Payments to check',
             'reports' => 'Open reports',
+            'identity' => 'Identity requests',
         ],
     ],
 

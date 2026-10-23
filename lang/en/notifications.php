@@ -135,6 +135,22 @@ return [
             'title' => 'A new report',
             'body' => 'A new report is waiting for you.',
         ],
+        'identity_approved' => [
+            'title' => 'Your identity is verified',
+            'body' => 'The "identity verified" badge is now shown on your biodata.',
+        ],
+        'identity_rejected' => [
+            'title' => 'Your identity request was not accepted',
+            'body' => 'Open the verification page to see the reason and send a new picture.',
+        ],
+        'staff_identity_waiting' => [
+            'title' => 'An identity request is waiting',
+            'body' => 'An identity request is waiting for your review.',
+        ],
+        'staff_contact_new' => [
+            'title' => 'A new contact message',
+            'body' => 'A new message is waiting in the contact inbox.',
+        ],
     ],
 
 ];

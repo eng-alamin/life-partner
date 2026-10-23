@@ -30,6 +30,10 @@ enum NotificationType: string
     case StaffBiodataChanged = 'staff.biodata_changed';
     case StaffPhotoWaiting = 'staff.photo_waiting';
     case StaffReportNew = 'staff.report_new';
+    case IdentityApproved = 'identity.approved';
+    case IdentityRejected = 'identity.rejected';
+    case StaffIdentityWaiting = 'staff.identity_waiting';
+    case StaffContactNew = 'staff.contact_new';
 
     public function category(): NotificationCategory
     {
@@ -37,11 +41,13 @@ enum NotificationType: string
             self::InterestReceived, self::InterestAccepted, self::InterestDeclined,
             self::InterestCancelled, self::ContactReady => NotificationCategory::Interests,
             self::BiodataApproved, self::BiodataRejected,
-            self::PhotoApproved, self::PhotoRejected => NotificationCategory::Profile,
+            self::PhotoApproved, self::PhotoRejected,
+            self::IdentityApproved, self::IdentityRejected => NotificationCategory::Profile,
             self::PaymentApproved, self::PaymentRejected, self::PaymentRefunded,
             self::MembershipExpiring, self::MembershipExpired => NotificationCategory::Payments,
             self::StaffPaymentWaiting, self::StaffBiodataWaiting, self::StaffBiodataChanged,
-            self::StaffPhotoWaiting, self::StaffReportNew => NotificationCategory::Staff,
+            self::StaffPhotoWaiting, self::StaffReportNew, self::StaffIdentityWaiting,
+            self::StaffContactNew => NotificationCategory::Staff,
         };
     }
 
@@ -53,12 +59,15 @@ enum NotificationType: string
             self::InterestCancelled, self::ContactReady => 'interests.index',
             self::BiodataApproved, self::BiodataRejected,
             self::PhotoApproved, self::PhotoRejected => 'my-biodata',
+            self::IdentityApproved, self::IdentityRejected => 'account.verification',
             self::PaymentApproved, self::PaymentRejected, self::PaymentRefunded,
             self::MembershipExpiring, self::MembershipExpired => 'billing.index',
             self::StaffPaymentWaiting => 'admin.payments',
             self::StaffBiodataWaiting, self::StaffBiodataChanged => 'admin.approvals',
             self::StaffPhotoWaiting => 'admin.photos',
             self::StaffReportNew => 'admin.reports',
+            self::StaffIdentityWaiting => 'admin.verification',
+            self::StaffContactNew => 'admin.contact',
         };
     }
 
@@ -69,6 +78,8 @@ enum NotificationType: string
             self::StaffPaymentWaiting => StaffPermission::ManagePayments,
             self::StaffBiodataWaiting, self::StaffBiodataChanged, self::StaffPhotoWaiting => StaffPermission::ReviewBiodata,
             self::StaffReportNew => StaffPermission::HandleReports,
+            self::StaffIdentityWaiting => StaffPermission::ReviewIdentity,
+            self::StaffContactNew => StaffPermission::HandleContact,
             default => null,
         };
     }

@@ -22,8 +22,9 @@ use Illuminate\Validation\ValidationException;
  * - Email: valid address, 120 characters at most. Phone: digits with an optional leading +,
  *   spaces and hyphens, 7 to 15 digits (Bangla digits are converted). Address: one line, 200 at most.
  *   Empty means "not set" and is not shown to the public.
+ * - guardian_approval is a switch too. If the input does not hold it, the current value is kept.
  * - Only changed values are written. The activity log keeps the names of the changed settings and,
- *   for the registration switch, its new value. It never holds the email, phone or address.
+ *   for the two switches, their new value. It never holds the email, phone or address.
  */
 final class SaveSettings
 {
@@ -35,7 +36,7 @@ final class SaveSettings
     {
     }
 
-    /** @param  array<string, mixed>  $input  registration_open, contact_email, contact_phone, contact_address_bn, contact_address_en */
+    /** @param  array<string, mixed>  $input  registration_open, guardian_approval, contact_email, contact_phone, contact_address_bn, contact_address_en */
     public function __invoke(User $staff, array $input): void
     {
         Gate::forUser($staff)->authorize('update', new Setting);
@@ -68,6 +69,10 @@ final class SaveSettings
                     $properties['registration_open'] = $data[SettingKey::RegistrationOpen->value] === '1';
                 }
 
+                if (in_array(SettingKey::GuardianApproval->value, $changed, true)) {
+                    $properties['guardian_approval'] = $data[SettingKey::GuardianApproval->value] === '1';
+                }
+
                 activity('settings')
                     ->causedBy($staff)
                     ->withProperties($properties)
@@ -92,6 +97,10 @@ final class SaveSettings
         $errors = [];
 
         $data[SettingKey::RegistrationOpen->value] = filter_var($input['registration_open'] ?? false, FILTER_VALIDATE_BOOLEAN) ? '1' : '0';
+
+        $data[SettingKey::GuardianApproval->value] = array_key_exists('guardian_approval', $input)
+            ? (filter_var($input['guardian_approval'], FILTER_VALIDATE_BOOLEAN) ? '1' : '0')
+            : $this->currentGuardianApproval();
 
         $email = Str::lower($this->line($input['contact_email'] ?? ''));
 
@@ -124,6 +133,15 @@ final class SaveSettings
         }
 
         return $data;
+    }
+
+    /** The saved value, or the default, so an input without the switch changes nothing. */
+    private function currentGuardianApproval(): string
+    {
+        $row = Setting::query()->where('key', SettingKey::GuardianApproval->value)->first();
+        $value = $row !== null ? $row->value : null;
+
+        return $value !== null && $value !== '' ? ($value === '0' ? '0' : '1') : (string) SettingKey::GuardianApproval->default();
     }
 
     private function phoneIsValid(string $phone): bool

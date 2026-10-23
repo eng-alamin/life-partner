@@ -24,6 +24,20 @@
             @enderror
         </x-card>
 
+        <x-card class="space-y-3">
+            <h2 class="text-lg font-semibold text-stone-900">{{ __('admin_settings.guardian.heading') }}</h2>
+
+            <label class="flex items-start gap-3 text-stone-800">
+                <input type="checkbox" wire:model="guardian_approval" class="mt-1 size-5 accent-brand-600">
+                <span>{{ __('admin_settings.guardian.label') }}</span>
+            </label>
+            <p class="text-sm text-stone-600">{{ __('admin_settings.guardian.hint') }}</p>
+
+            @error('guardian_approval')
+                <p class="text-sm font-medium text-red-700" role="alert">{{ $message }}</p>
+            @enderror
+        </x-card>
+
         <x-card class="space-y-4">
             <div>
                 <h2 class="text-lg font-semibold text-stone-900">{{ __('admin_settings.contact.heading') }}</h2>

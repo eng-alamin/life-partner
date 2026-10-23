@@ -27,6 +27,11 @@
         $isLive = fn (string $route): bool => ! str_starts_with($route, 'pages.') || in_array(substr($route, 6), $published, true);
         $menu = array_filter($menu, $isLive, ARRAY_FILTER_USE_KEY);
         $policyLinks = array_filter($policyLinks, $isLive, ARRAY_FILTER_USE_KEY);
+
+        // The success stories link shows only while at least one story is public, so it never leads to an empty page.
+        if (\App\Models\SuccessStory::hasPublished()) {
+            $menu['stories.index'] = 'nav.stories';
+        }
     @endphp
 
     <header class="sticky top-0 z-40 glass-bar">

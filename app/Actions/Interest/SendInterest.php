@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Rules\NoContactDetails;
 use App\Services\Block\BlockGuard;
 use App\Services\Interest\InterestTransitions;
+use App\Services\Settings\SiteSettings;
 use App\Services\Subscription\ActiveMembership;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,7 @@ final class SendInterest
         private readonly BlockGuard $blocks,
         private readonly ActiveMembership $membership,
         private readonly Notifier $notifier,
+        private readonly SiteSettings $settings,
     ) {}
 
     public function __invoke(User $user, string $receiverCode, ?string $message = null): Interest
@@ -176,7 +178,7 @@ final class SendInterest
     /** The receiver's guardian must approve only if the setting is on and a guardian can approve. */
     private function guardianStatusFor(Biodata $receiver): GuardianApprovalStatus
     {
-        $required = (bool) config('lifepartner.interests.guardian_approval')
+        $required = $this->settings->guardianApprovalRequired()
             && $receiver->guardian?->can_approve === true;
 
         return $required ? GuardianApprovalStatus::Pending : GuardianApprovalStatus::NotRequired;

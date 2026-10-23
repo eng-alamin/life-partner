@@ -30,6 +30,7 @@ final class BiodataSearch
     private const CARD_COLUMNS = [
         'id', 'public_code', 'type', 'birth_date', 'marital_status',
         'present_country', 'present_district_id', 'profession', 'practicing_level', 'reviewed_at', 'photo_visibility',
+        'identity_verified_at',
     ];
 
     public function __construct(private readonly BlockGuard $blocks) {}

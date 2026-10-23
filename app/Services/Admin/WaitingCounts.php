@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Services\Admin;
 
+use App\Enums\BiodataStatus;
+use App\Enums\IdentityStatus;
 use App\Enums\PaymentStatus;
 use App\Enums\PhotoStatus;
 use App\Enums\ReportStatus;
 use App\Enums\StaffPermission;
 use App\Models\Biodata;
 use App\Models\BiodataPhoto;
+use App\Models\IdentityVerification;
 use App\Models\Payment;
 use App\Models\Report;
 use App\Models\User;
-use App\Enums\BiodataStatus;
 
 /**
  * How many things wait for one staff member. A number is returned only for what
  * this person may actually handle, and it matches the queue the person would open
- * (a reviewer's own biodata and photos are never in their queue, so never counted).
+ * (a reviewer's own biodata, photos and identity request are never in their queue,
+ * so never counted).
  */
 final class WaitingCounts
 {
@@ -28,6 +31,7 @@ final class WaitingCounts
         'photos' => 'admin.photos',
         'payments' => 'admin.payments',
         'reports' => 'admin.reports',
+        'identity' => 'admin.verification',
     ];
 
     /** @return array<string, int> only the keys this person may handle */
@@ -56,6 +60,13 @@ final class WaitingCounts
         if ($user->can('viewAny', Report::class)) {
             $counts['reports'] = Report::query()
                 ->where('status', ReportStatus::Open->value)
+                ->count();
+        }
+
+        if ($user->can('viewAny', IdentityVerification::class)) {
+            $counts['identity'] = IdentityVerification::query()
+                ->where('status', IdentityStatus::Pending->value)
+                ->where('user_id', '!=', $user->getKey())
                 ->count();
         }
 

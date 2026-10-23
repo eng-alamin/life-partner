@@ -1,17 +1,29 @@
 <?php
 
 return [
-    'errors' => [
-        'not_available' => 'The contact details cannot be shown right now.',
+    'heading' => 'Write to us',
+    'intro' => 'Have a question or a problem? Send us a message and we will answer by email.',
+    'fields' => [
+        'name' => 'Your name',
+        'email' => 'Your email address',
+        'phone' => 'Phone number',
+        'subject' => 'Subject',
+        'message' => 'Your message',
     ],
-
-    'inbox' => [
-        'show' => 'Show guardian contact',
-        'hide' => 'Hide',
-        'heading' => 'Guardian contact',
-        'name' => 'Name',
-        'relation' => 'Relation',
-        'phone' => 'Phone',
-        'note' => 'Contact goes through the guardian. Please speak politely and do not share this number with anyone else.',
+    'hints' => [
+        'phone' => 'Optional. Only if you want us to call you.',
+    ],
+    'honeypot' => 'Leave this field empty',
+    'send' => 'Send message',
+    'sent' => 'Thank you. Your message has been sent. We will reply by email.',
+    'privacy_note' => 'Please do not send passwords or card numbers. Your message is kept for :days days and then deleted.',
+    'errors' => [
+        'too_fast' => 'Please take a moment to check your message and press Send again.',
+        'links' => 'Please use at most :max web addresses in your message.',
+    ],
+    'status' => [
+        'new' => 'New',
+        'handled' => 'Handled',
+        'spam' => 'Spam',
     ],
 ];

@@ -16,12 +16,15 @@ enum SettingKey: string
     case ContactPhone = 'contact_phone';
     case ContactAddressBn = 'contact_address_bn';
     case ContactAddressEn = 'contact_address_en';
+    /** "1" = the receiver's guardian must approve before contact opens. Until staff save, .env decides. */
+    case GuardianApproval = 'guardian_approval';
 
     /** The value used until staff save something. Null means "not set". */
     public function default(): ?string
     {
         return match ($this) {
             self::RegistrationOpen => '1',
+            self::GuardianApproval => config('lifepartner.interests.guardian_approval') ? '1' : '0',
             default => null,
         };
     }

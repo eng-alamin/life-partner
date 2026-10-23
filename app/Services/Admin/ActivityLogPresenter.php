@@ -23,17 +23,17 @@ final class ActivityLogPresenter
 {
     /** The log names the page can filter by (the first argument of activity()). */
     public const LOGS = [
-        'account', 'biodata', 'billing', 'block', 'interest', 'moderation', 'notification',
-        'page', 'payment', 'plan', 'report', 'settings', 'staff', 'user',
+        'account', 'biodata', 'billing', 'block', 'identity', 'interest', 'moderation', 'notification',
+        'page', 'payment', 'plan', 'report', 'settings', 'staff', 'story', 'user',
     ];
 
     /** Property keys that are safe to show. Everything else is dropped. */
     private const SHOWN_KEYS = [
         'action', 'amount_minor', 'also_resolved', 'biodata_code', 'biodata_from', 'biodata_to', 'by',
         'credits', 'credits_removed', 'days', 'deleted', 'fields', 'from', 'interest_code', 'is_published',
-        'keys', 'kind', 'payment_code', 'photo_code', 'plan_code', 'public_code', 'reason',
+        'guardian_approval', 'identity_code', 'keys', 'kind', 'payment_code', 'photo_code', 'plan_code', 'public_code', 'reason',
         'registration_open', 'report_code', 'reported_code', 'revision', 'role', 'side',
-        'slug', 'subscription_cancelled', 'target_code', 'to',
+        'slug', 'story_code', 'subscription_cancelled', 'target_code', 'to',
     ];
 
     private const MAX_VALUE_LENGTH = 60;
